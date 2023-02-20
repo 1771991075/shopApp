@@ -1,0 +1,21 @@
+.cart {
+  position: relative;
+  width: 100%;
+  padding-bottom: 50px;
+  box-sizing: border-box;
+}
+.cart .cartnav {
+  width: 100%;
+}
+.cart .cartmid {
+  min-height: 78vh;
+}
+.cart .cartbtm {
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  left: 0px;
+}
+.cart .cartbtm .rv-submit-bar {
+  position: absolute;
+}

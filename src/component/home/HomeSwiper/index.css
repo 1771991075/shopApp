@@ -1,0 +1,13 @@
+.lazyy{
+    width: 100%;
+    min-height: 164px;
+    position: relative;
+}
+.loadimg{
+    margin: auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 189px !important;
+    max-height: 164px;
+}

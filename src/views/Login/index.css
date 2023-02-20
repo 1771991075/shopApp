@@ -1,0 +1,28 @@
+.loginbox {
+  padding: 50px 30px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+.loginbox .close .closebtn {
+  background: #fff;
+  border: none;
+  color: #999;
+}
+.loginbox .login {
+  padding-top: 80px;
+}
+.loginbox .login p {
+  font-size: 28px;
+  margin: 10px;
+}
+.loginbox .login .getNum {
+  background: #fff;
+  border: none;
+  color: #999;
+}
+.loginbox .login .loginbtn {
+  height: 40px;
+  border: none;
+  background-image: linear-gradient(to right, #ff9a98, #ffa079);
+}

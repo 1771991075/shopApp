@@ -1,0 +1,160 @@
+.homecontainer {
+  background-color: #f1f1f1;
+}
+.homecontainer .hometop {
+  background: -webkit-linear-gradient(270deg, #e93323, #f5f5f5);
+}
+.homecontainer .hometop .search .rv-search {
+  background: none;
+}
+.homecontainer .hometop .demo-swiper {
+  padding: 0px 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+.homecontainer .hometop .demo-swiper img {
+  width: 100%;
+}
+.homecontainer .homemid {
+  padding: 0px 10px;
+  box-sizing: border-box;
+  background-color: #f1f1f1;
+  min-height: 1000px;
+}
+.homecontainer .homemid .cate {
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.homecontainer .homemid .cate .cateItem {
+  width: 60px;
+}
+.homecontainer .homemid .cate .cateItem img {
+  width: 40px;
+  margin: 0px 10px;
+}
+.homecontainer .homemid .cate .cateItem p {
+  text-align: center;
+  font-size: 12px;
+  color: #333;
+}
+.homecontainer .homemid .shoplist {
+  border-radius: 5px;
+  margin-top: 10px;
+  background-color: #fff;
+}
+.homecontainer .homemid .shoplist .shoppaihang {
+  height: 30px;
+  display: flex;
+  line-height: 30px;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 5px 10px;
+  box-sizing: border-box;
+}
+.homecontainer .homemid .shoplist .shoppaihang .spphb {
+  display: flex;
+  align-items: baseline;
+  font-size: 16px;
+  font-weight: 600;
+}
+.homecontainer .homemid .shoplist .shoppaihang .gengduo {
+  font-size: 14px;
+  color: #999;
+  display: flex;
+  align-items: center;
+}
+.homecontainer .homemid .shoplist .paihangbangitem {
+  display: flex;
+  justify-content: space-between;
+}
+.homecontainer .homemid .shoplist .paihangbangitem .itemimg img {
+  width: 120px;
+}
+.homecontainer .homemid .shoplist .paihangbangitem .itemright {
+  display: flex;
+  align-content: space-between;
+  flex-wrap: wrap;
+  padding: 10px 5px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ebebeb;
+}
+.homecontainer .homemid .shoplist .paihangbangitem .itemright p {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.homecontainer .homemid .shoplist .paihangbangitem .itemright .price {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.homecontainer .homemid .shoplist .paihangbangitem .itemright .price .priceleft {
+  font-size: 18px;
+  color: #e93323;
+  font-weight: 600;
+  margin-right: 10px;
+}
+.homecontainer .homemid .shoplist .paihangbangitem .itemright .price .buycount {
+  font-size: 14px;
+  color: #999;
+}
+.homecontainer .homemid .btmlist {
+  margin-top: 10px;
+}
+.homecontainer .homemid .btmlist .rv-tabs {
+  position: sticky;
+  top: 0px;
+}
+.homecontainer .homemid .btmlist .btmcate {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
+.homecontainer .homemid .btmlist .btmcate .btmlist1 {
+  width: 170px;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+.homecontainer .homemid .btmlist .btmcate .btmlist1 .itemimg img {
+  width: 170px;
+}
+.homecontainer .homemid .btmlist .btmcate .btmlist1 .itemxinxi {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.homecontainer .homemid .btmlist .btmcate .btmlist1 .itemxinxi .itemtitle {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.homecontainer .homemid .btmlist .btmcate .btmlist1 .itemxinxi .itemotprice {
+  color: #999;
+  font-size: 14px;
+  text-decoration: line-through;
+}
+.homecontainer .homemid .btmlist .btmcate .btmlist1 .itemxinxi .itemprice {
+  color: #e93323;
+  font-size: 16px;
+  font-weight: 600;
+}
+.homecontainer .homemid .more {
+  padding: 10px;
+}
+.homecontainer .homemid .more p {
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+}
