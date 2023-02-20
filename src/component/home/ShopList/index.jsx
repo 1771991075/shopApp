@@ -10,7 +10,7 @@ class ShopList extends Component {
                 {
                     this.props.listBtm.map((item, index) => {
                         return (
-                            <div className='btmlist1' key={index} onClick={() => { this.toInfo(item.id) }}>
+                            <div className='btmlist1' key={index} onClick={() => this.props.router.navigate(`/info?id=${item.id}`) }>
                                 <div className='itemimg'>
                                     <Lazyimg className="lazy" src={item.image} placeholder={<img src={loading} alt='加载失败'/>}/>
                                 </div>
@@ -27,9 +27,6 @@ class ShopList extends Component {
         )
     }
 
-    toInfo(id){
-        this.props.router.navigate(`/info?id=${id}`)
-    }
 }
 
 export default WithRouter(ShopList)

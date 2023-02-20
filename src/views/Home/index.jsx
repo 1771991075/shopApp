@@ -7,6 +7,7 @@ import HomeSwiper from '../../component/home/HomeSwiper'
 import ListCate from '../../component/home/ListCate';
 import ShopList from '../../component/home/ShopList'
 import { getTopList,getGoodsList,getCate } from '../../api/home';
+import ShopTopList from '../../component/home/ShopTopList';
 
 class Home extends Component {
 
@@ -45,26 +46,7 @@ class Home extends Component {
               <div className='spphb'><FireO />商品排行榜</div>
               <div className='gengduo'>更多<Arrow /></div>
             </div>
-            {
-              listTop.map((item, index) => {
-                return (
-                  <div key={index} className='paihangbangitem' onClick={()=>this.toInfo(item.id)}>
-                    <div className='itemimg'>
-                      <img src={item.image} alt="" />
-                    </div>
-                    <div className='itemright'>
-                      <div>
-                        <p>{item.storeName}</p>
-                      </div>
-                      <div className='price'>
-                        <div className='priceleft'>￥{item.price}</div>
-                        <div className='buycount'>销量{item.sales}件</div>
-                      </div>
-                    </div>
-                  </div>
-                )
-              })
-            }
+            <ShopTopList listTop={listTop}/>
           </div>
 
           <div className='btmlist'>

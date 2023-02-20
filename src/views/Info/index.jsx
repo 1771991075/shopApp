@@ -3,6 +3,7 @@ import WithRouter from '../../router/withRouter'
 import { NavBar, Search, ActionBar, Swiper, Button } from 'react-vant';
 import { CartO, Star } from '@react-vant/icons'
 import Content from '../../component/Content'
+import {getShopInfo} from '../../api/info'
 import './index.css'
 class Info extends Component {
     state = {
@@ -21,7 +22,7 @@ class Info extends Component {
     componentDidMount() {
         let [search] = this.props.router.searchParams
         let id = search.get('id')
-        this.$axios.get(`/shopapp/api/front/product/detail/${id}?type=normal`).then(res => {
+        getShopInfo(id).then(res => {
             console.log(res.data.data.productInfo);
             this.setState({
                 //商品详情
