@@ -1,9 +1,12 @@
 .info {
   background-color: #f1f1f1;
 }
+.info .infoTop {
+  min-height: 50vh;
+}
 .info .infoTop .rv-nav-bar__content {
   width: 100%;
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   top: 0px;

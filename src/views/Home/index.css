@@ -112,6 +112,7 @@
 .homecontainer .homemid .btmlist .rv-tabs {
   position: sticky;
   top: 0px;
+  z-index: 99;
 }
 .homecontainer .homemid .btmlist .btmcate {
   margin-top: 10px;

@@ -1,0 +1,44 @@
+.goodshop {
+  background: #fff;
+  margin: 10px;
+  border-radius: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.goodshop .yptj {
+  text-align: center;
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 10px;
+}
+.goodshop .goodshoplist {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.goodshop .goodshoplist .goodshopitem {
+  width: 100px;
+}
+.goodshop .goodshoplist .goodshopitem .goodshopimg img {
+  width: 100px;
+}
+.goodshop .goodshoplist .goodshopitem .goodshopname {
+  font-size: 13px;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.goodshop .goodshoplist .goodshopitem p {
+  font-size: 15px;
+  color: #ff7600;
+}
+.goodshop .lazy111 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
