@@ -194,10 +194,10 @@ class Info extends Component {
 
                 <div className='demo-action-bar'>
                     <ActionBar>
-                        <ActionBar.Icon icon={<CartO color='red' />} text='购物车' />
+                        <ActionBar.Icon icon={<CartO color='red' />} text='购物车' onClick={()=>this.props.router.navigate('/index/cart')}/>
                         <ActionBar.Icon icon={<StarO color='red' />} text='店铺' />
-                        <ActionBar.Button type='warning' text='加入购物车' />
-                        <ActionBar.Button type='danger' text='立即购买' />
+                        <ActionBar.Button type='warning' text='加入购物车' onClick={()=>this.changeIsShow()} />
+                        <ActionBar.Button type='danger' text='立即购买' onClick={()=>this.changeIsShow()}  />
                     </ActionBar>
                 </div>
                 <InfoPopup ref={this.popupRef} skuList={skuList} productAttr={productAttr} msgInfo={msgInfo} setSkuList={(skuList) => {
