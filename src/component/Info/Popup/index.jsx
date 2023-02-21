@@ -58,7 +58,7 @@ export default class InfoPopup extends Component {
                         <div>
                             <Cell title='数量' center>
                                 <Stepper
-                                    value={0}
+                                    value={1}
                                     theme='round'
                                     buttonSize='17'
                                     disableInput

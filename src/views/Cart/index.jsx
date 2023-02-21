@@ -20,7 +20,7 @@ class Cart extends Component {
             title='购物车'
             onClickLeft={() => this.props.router.navigate('/index/home')}
             rightText={<Ellipsis style={{ fontSize: '20px', color: '#fff' }} />}
-            onClickRight={() => Toast('按钮')}
+            onClickRight={() => Toast('更多')}
           />
         </div>
         <div className='cartmid'>
@@ -29,7 +29,7 @@ class Cart extends Component {
               imageSize={90}
               image={<ShoppingCartO fontSize={90} color='#999'/>}
               description="购物车是空的~~~" >
-              <Button style={{ width: 160 ,background:'#ff6034' ,border:'none'}} round type="primary">
+              <Button style={{ width: 160 ,background:'#ff6034' ,border:'none'}} round type="primary" onClick={()=>this.props.router.navigate('/index/home')}>
                 去逛逛
               </Button> </Empty> :
               cartList.map((item, index) => {
@@ -49,17 +49,17 @@ class Cart extends Component {
         </div>
         <div className='cartbtm'>
           <SubmitBar
-            disabled
+            disabled={(cartList.length===0?true:false)}
             price="0000"
             buttonText="提交订单"
-            tip={
-              <>
-                你的收货地址不支持同城送,
-                <span style={{ color: '#1989fa' }}>修改地址</span>
-              </>
-            }
+            // tip={
+            //   <>
+            //     你的收货地址不支持同城送,
+            //     <span style={{ color: '#1989fa' }}>修改地址</span>
+            //   </>
+            // }
           >
-            <Checkbox>全选</Checkbox>
+            <Checkbox disabled={(cartList.length===0?true:false)}>全选</Checkbox>
           </SubmitBar>
         </div>
       </div>
