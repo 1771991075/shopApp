@@ -1,6 +1,10 @@
 .info {
   background-color: #f1f1f1;
 }
+.info .rv-sticky {
+  display: none;
+  margin-top: 40px;
+}
 .info .infoTop {
   min-height: 50vh;
 }

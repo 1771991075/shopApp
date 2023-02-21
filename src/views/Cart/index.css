@@ -7,6 +7,12 @@
 .cart .cartnav {
   width: 100%;
 }
+.cart .cartnav .rv-nav-bar__content {
+  background-color: #ff6034;
+}
+.cart .cartnav .rv-nav-bar__content .rv-nav-bar__title {
+  color: #fff;
+}
 .cart .cartmid {
   min-height: 78vh;
 }

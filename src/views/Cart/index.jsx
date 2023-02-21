@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Toast, NavBar, SubmitBar, ProductCard, Empty } from 'react-vant'
-import { Search } from '@react-vant/icons'
+import { Toast, NavBar, SubmitBar, ProductCard, Empty, Checkbox, Button } from 'react-vant'
+import { WapHomeO, Ellipsis, ShoppingCartO } from '@react-vant/icons'
 import WithRouter from '../../router/withRouter'
 import './index.css'
 
@@ -16,35 +16,51 @@ class Cart extends Component {
       <div className='cart'>
         <div className='cartnav'>
           <NavBar
+            leftArrow={<WapHomeO style={{ fontSize: '20px', color: '#fff' }} />}
             title='购物车'
-            leftText='返回'
-            onClickLeft={() => this.props.router.navigate(-1)}
-            rightText={<Search fontSize={20} />}
+            onClickLeft={() => this.props.router.navigate('/index/home')}
+            rightText={<Ellipsis style={{ fontSize: '20px', color: '#fff' }} />}
             onClickRight={() => Toast('按钮')}
           />
         </div>
         <div className='cartmid'>
           {
-            !cartList.length ? <Empty description="空空如也" />:
-            cartList.map((item, index) => {
-              return (
-                <div key={index}>
-                  <ProductCard
-                    num="2"
-                    price="2.00"
-                    desc="描述信息"
-                    title="商品名称"
-                    thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
-                  />
-                </div>
-              )
-            })
+            !cartList.length ? <Empty
+              imageSize={90}
+              image={<ShoppingCartO fontSize={90} color='#999'/>}
+              description="购物车是空的~~~" >
+              <Button style={{ width: 160 ,background:'#ff6034' ,border:'none'}} round type="primary">
+                去逛逛
+              </Button> </Empty> :
+              cartList.map((item, index) => {
+                return (
+                  <div key={index}>
+                    <ProductCard
+                      num="2"
+                      price="2.00"
+                      desc="描述信息"
+                      title="商品名称"
+                      thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
+                    />
+                  </div>
+                )
+              })
           }
         </div>
         <div className='cartbtm'>
-          <div className="demo-submit-bar">
-            <SubmitBar price="0000" buttonText="提交订单" />
-          </div>
+          <SubmitBar
+            disabled
+            price="0000"
+            buttonText="提交订单"
+            tip={
+              <>
+                你的收货地址不支持同城送,
+                <span style={{ color: '#1989fa' }}>修改地址</span>
+              </>
+            }
+          >
+            <Checkbox>全选</Checkbox>
+          </SubmitBar>
         </div>
       </div>
     )

@@ -14,7 +14,7 @@ export default function Login() {
     password: '',
   })
   function close(){
-    navigate(-2)
+    navigate('/index/home')
   }
 
   function login(){

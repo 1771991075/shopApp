@@ -2,10 +2,10 @@ import {lazy,Suspense} from 'react'
 import { Navigate } from 'react-router-dom'
 import KeepAlive from 'react-activation'
 import MyLoading from '../component/Loading'
-let Home = lazy(()=>import('../views/Home'))
+import Index from '../views/Index'
+import Home from '../views/Home'
 let Cart = lazy(()=>import('../views/Cart'))
 let Mine = lazy(()=>import('../views/Mine'))
-let Index = lazy(()=>import('../views/Index'))
 let Login = lazy(()=>import('../views/Login'))
 let Info = lazy(()=>import('../views/Info'))
 let NotFound = lazy(()=>import('../component/NotFound'))
@@ -13,12 +13,12 @@ let NotFound = lazy(()=>import('../component/NotFound'))
 let elements = [
     {
         path:'/index',
-        element:<KeepAlive id='index'><Suspense fallback={<MyLoading/>}><Index/></Suspense></KeepAlive>,
+        element:<Index/>,
         author:false,
         children:[
             {
                 path:'home',
-                element:<KeepAlive id='home'><Suspense fallback={<MyLoading/>}><Home/></Suspense></KeepAlive>,
+                element:<KeepAlive id='home'><Home/></KeepAlive>,
                 author:false,
             },
             {
