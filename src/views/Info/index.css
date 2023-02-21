@@ -1,4 +1,6 @@
 .info {
+  width: 100%;
+  box-sizing: border-box;
   background-color: #f1f1f1;
 }
 .info .rv-sticky {
@@ -23,9 +25,54 @@
 .info .infoTop .lbtimg div .imggg {
   width: 100%;
 }
+.info .guige {
+  margin: 10px;
+}
+.info .guige .rv-cell {
+  border-radius: 5px;
+}
+.info .pingjia {
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 10px;
+}
+.info .pingjia p {
+  font-size: 14px;
+  color: #999;
+}
+.info .pingjia .pingjiaxinxi {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 10px;
+  box-sizing: border-box;
+}
+.info .pingjia .pingjiaxinxi .pingjiauserImg {
+  width: 20%;
+  margin-right: 20px;
+}
+.info .pingjia .pingjiaxinxi .pingjiauserImg img {
+  width: 100%;
+}
+.info .pingjia .pingjiaxinxi .pingjiaInfo {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+.info .pingjia .pingjiaxinxi .pingjiaInfo .pingjiaInfo2 {
+  margin-bottom: 20px;
+}
+.info .pingjia .pingjiaxinxi .pingjiaInfo .pingjiaspan1 {
+  color: #555;
+  font-size: 14px;
+}
+.info .pingjia .pingjiaxinxi .pingjiaInfo .pingjiaspan1 .rv-rate {
+  margin: 5px 10px 0px 10px;
+}
 .info .infoxinxi {
   padding: 10px;
-  margin: 5px;
+  margin: 10px;
   box-sizing: border-box;
   background-color: #fff;
   border-radius: 5px;

@@ -6,7 +6,11 @@ let getShopInfo = (id)=>sendHttp(`/api/front/product/detail/${id}?type=normal`,'
 //获取优品推荐
 let getGoodShop= ( )=>sendHttp(`/api/front/product/good`,'get')
 
+//获取用户评价
+let getUserComments = (id)=>sendHttp(`/api/front/reply/product/${id}`,'get')
+
 export {
     getShopInfo,
-    getGoodShop
+    getGoodShop,
+    getUserComments
 }
