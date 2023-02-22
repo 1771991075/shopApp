@@ -9,8 +9,16 @@ let getGoodShop= ( )=>sendHttp(`/api/front/product/good`,'get')
 //获取用户评价
 let getUserComments = (id)=>sendHttp(`/api/front/reply/product/${id}`,'get')
 
+//收藏商品
+let addUserCollect = (data)=>sendHttp('/api/front/collect/add','post',data)
+
+//取消收藏
+let removeUserCollect = (id)=>sendHttp(`/api/front/collect/cancel/${id}`,'post')
+
 export {
     getShopInfo,
     getGoodShop,
-    getUserComments
+    getUserComments,
+    addUserCollect,
+    removeUserCollect
 }

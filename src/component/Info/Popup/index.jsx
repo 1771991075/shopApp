@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Popup, Stepper, Cell ,ActionBar ,Toast  } from 'react-vant';
-import { CartO, StarO } from '@react-vant/icons';
+import { CartO, StarO ,Star } from '@react-vant/icons';
 import './index.css';
 import bus from '../../../utils/bus';
 import WithRouter from '../../../router/withRouter';
@@ -16,7 +16,7 @@ class InfoPopup extends Component {
 
     render() {
         let { isShow ,num } = this.state
-        let { productAttr, skuList, msgInfo ,router} = this.props
+        let { productAttr, skuList, msgInfo ,router ,userCollect,getCollect} = this.props
         return (
             <div>
 
@@ -74,7 +74,7 @@ class InfoPopup extends Component {
                         <div className='demo-action-bar'>
                             <ActionBar>
                                 <ActionBar.Icon icon={<CartO color='red' />} text='购物车' onClick={()=>router.navigate('/index/cart')} />
-                                <ActionBar.Icon icon={<StarO color='red' />} text='店铺' />
+                                <ActionBar.Icon icon={userCollect?<Star color='red'/>:<StarO color='red' />} text='收藏' onClick={()=>getCollect()}/>
                                 <ActionBar.Button type='warning' text='加入购物车' onClick={()=>{this.addCart()}} />
                                 <ActionBar.Button type='danger' text='立即购买' />
                             </ActionBar>

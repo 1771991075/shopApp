@@ -1,9 +1,9 @@
 import React, { Component, createRef } from 'react'
 import WithRouter from '../../router/withRouter'
-import { NavBar, Search, ActionBar, ImagePreview, Tabs, Cell, Rate } from 'react-vant';
-import { CartO, StarO } from '@react-vant/icons'
+import { NavBar, Search, ActionBar, ImagePreview, Tabs, Cell, Rate, Toast } from 'react-vant';
+import { CartO, StarO ,Star } from '@react-vant/icons'
 import Content from '../../component/Content'
-import { getShopInfo, getGoodShop, getUserComments } from '../../api/info'
+import { getShopInfo, getGoodShop, getUserComments ,addUserCollect ,removeUserCollect } from '../../api/info'
 import InfoSwiper from '../../component/Info/InfoSwiper';
 import ShopInfo from '../../component/Info/ShopInfo';
 import GoodShop from '../../component/Info/GoodShop';
@@ -13,7 +13,6 @@ import './index.css'
 class Info extends Component {
 
     swiperRef = createRef()
-    // popupRef = createRef()
 
     state = {
         shop: null,
@@ -40,7 +39,9 @@ class Info extends Component {
         // sku规格对应的详情数据对象
         productValue: [],
         //用户评价
-        InfoUserComments: null
+        InfoUserComments: null,
+        //用户收藏
+        userCollect:false
     }
 
     async componentDidMount() {
@@ -48,6 +49,10 @@ class Info extends Component {
         let id = search.get('id')
         let imgList = []
         let res = await getShopInfo(id)
+        console.log(res);
+        this.setState({
+            userCollect:res.data.data.userCollect
+        })
         let scrollHeight = 0
         //获取商品规格
         let productAttr = res.data.data.productAttr
@@ -124,7 +129,7 @@ class Info extends Component {
     }
 
     render() {
-        const { shop, images, goodShop, imgList, productAttr, skuList, msgInfo, InfoUserComments } = this.state
+        const { shop, images, goodShop, imgList, productAttr, skuList, msgInfo, InfoUserComments ,userCollect } = this.state
         return (
             <div className='info'>
                 <Tabs
@@ -199,17 +204,48 @@ class Info extends Component {
                 <div className='demo-action-bar'>
                     <ActionBar>
                         <ActionBar.Icon icon={<CartO color='red' />} text='购物车' onClick={()=>this.props.router.navigate('/index/cart')}/>
-                        <ActionBar.Icon icon={<StarO color='red' />} text='店铺' />
+                        <ActionBar.Icon icon={userCollect?<Star color='red'/>:<StarO color='red' />} text='收藏' onClick={()=>this.changeUserCollect()} />
                         <ActionBar.Button type='warning' text='加入购物车' onClick={()=>this.changeIsShow()} />
                         <ActionBar.Button type='danger' text='立即购买' onClick={()=>this.changeIsShow()}  />
                     </ActionBar>
                 </div>
-                <InfoPopup  skuList={skuList} productAttr={productAttr} msgInfo={msgInfo} setSkuList={(skuList) => {
-                    this.setState({ skuList }, () => this.getShopInfo() )
-                }} />
+                <InfoPopup  skuList={skuList} productAttr={productAttr} userCollect={userCollect} msgInfo={msgInfo} setSkuList={(skuList) => {
+                    this.setState({ skuList },()=> this.getShopInfo())}} getCollect={()=>this.changeUserCollect()}/>
             </div>
         )
     }
+
+    //点击收藏、取消收藏
+    async changeUserCollect(){
+        if(this.state.userCollect){
+            let res = await removeUserCollect(this.state.msgInfo.productId)
+            console.log(res);
+            if(res.data.code === 200){
+                Toast.success('取消收藏')
+                this.setState({
+                    userCollect:false
+                })
+                return
+            }
+            Toast.info(res.data.message)
+        }else{
+            let data = {
+                category:"product",
+                id:this.state.msgInfo.productId
+            }
+            let res = await addUserCollect(data)
+            console.log(res);
+            if(res.data.code === 200){
+                Toast.success('收藏成功')
+                this.setState({
+                    userCollect:true
+                })
+                return
+            }
+            Toast.info(res.data.message)
+        }
+    }
+
     //点击展示的图片
     showImg(e) {
         //获取当前点击的图片的路径
