@@ -3,6 +3,13 @@ import { Toast } from 'react-vant';
 axios.defaults.baseURL = "https://apif.java.crmeb.net";
 axios.defaults.timeout = 6000;
 
+//请求拦截
+axios.interceptors.request.use((config)=>{
+    // 设置请求头授权字段 每次请求都会携带该字段授权
+    config.headers['authori-zation'] = localStorage.getItem('USER_LOGIN')
+    return config
+})
+
 //响应拦截
 axios.interceptors.response.use((res)=>{
     if(res.data.code===401){
@@ -15,12 +22,13 @@ axios.interceptors.response.use((res)=>{
     return res
 })
 
-let sendHttp = (url,method,data=null)=>{
+let sendHttp = (url,method,data=null,header=null)=>{
     return axios({
         url,
         method,
         params:method==='get'? data : null,
-        data:method==='post'? data : null
+        data:method==='post'? data : null,
+        headers:header
     })
 } 
 

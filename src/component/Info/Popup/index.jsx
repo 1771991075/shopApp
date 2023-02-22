@@ -100,15 +100,24 @@ class InfoPopup extends Component {
         }
         let res = await addCartList(data)
         console.log(res);
+        if(res.data.code===200){
+            Toast.success('加入成功')
+            this.setState({
+                isShow:false
+            })
+            return
+        }
         Toast.clear()
     }
-
+    
+    //改变商品规格
     changeSku(index, i) {
         this.props.skuList[index] = i
         //向父组件传值，更新skuList
         this.props.setSkuList(this.props.skuList)
     }
 
+    //改变弹出层
     componentDidMount(){
         bus.on('sendIsShow',()=>{
             this.setState({ isShow: true })

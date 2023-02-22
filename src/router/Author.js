@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import React from 'react'
 
 export default function Author(props) {
-  let token = localStorage.getItem('token')
+  let token = localStorage.getItem('USER_LOGIN')
   if(token){
     return (
         <div>
