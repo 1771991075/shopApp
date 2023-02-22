@@ -1,17 +1,22 @@
-import React, { Component } from 'react'
-import { Popup, Stepper, Cell ,ActionBar } from 'react-vant';
-import { CartO, StarO } from '@react-vant/icons'
-import './index.css'
+import React, { Component } from 'react';
+import { Popup, Stepper, Cell ,ActionBar ,Toast  } from 'react-vant';
+import { CartO, StarO } from '@react-vant/icons';
+import './index.css';
+import bus from '../../../utils/bus';
+import WithRouter from '../../../router/withRouter';
+import {addCartList} from '../../../api/cart';
 
-export default class InfoPopup extends Component {
+class InfoPopup extends Component {
 
     state = {
-        isShow: false
+        isShow: false,
+        //购买数量
+        num:1
     }
 
     render() {
-        let { isShow } = this.state
-        let { productAttr, skuList, msgInfo } = this.props
+        let { isShow ,num } = this.state
+        let { productAttr, skuList, msgInfo ,router} = this.props
         return (
             <div>
 
@@ -58,18 +63,19 @@ export default class InfoPopup extends Component {
                         <div>
                             <Cell title='数量' center>
                                 <Stepper
-                                    value={1}
+                                    value={num}
                                     theme='round'
                                     buttonSize='17'
                                     disableInput
+                                    onClick={(value)=>this.setState({num:value})}
                                 />
                             </Cell>
                         </div>
                         <div className='demo-action-bar'>
                             <ActionBar>
-                                <ActionBar.Icon icon={<CartO color='red' />} text='购物车' />
+                                <ActionBar.Icon icon={<CartO color='red' />} text='购物车' onClick={()=>router.navigate('/index/cart')} />
                                 <ActionBar.Icon icon={<StarO color='red' />} text='店铺' />
-                                <ActionBar.Button type='warning' text='加入购物车' />
+                                <ActionBar.Button type='warning' text='加入购物车' onClick={()=>{this.addCart()}} />
                                 <ActionBar.Button type='danger' text='立即购买' />
                             </ActionBar>
                         </div>
@@ -79,13 +85,35 @@ export default class InfoPopup extends Component {
         )
     }
 
+    //加入购物车
+    async addCart(){
+        Toast.loading({
+            message: '加入中...',
+            forbidClick: true,
+        })
+        let {msgInfo} = this.props
+        let data = {
+            cartNum:this.state.num,
+            isNew:false,
+            productAttrUnique:msgInfo.productAttrUnique,
+            productId:msgInfo.productId
+        }
+        let res = await addCartList(data)
+        console.log(res);
+        Toast.clear()
+    }
+
     changeSku(index, i) {
         this.props.skuList[index] = i
         //向父组件传值，更新skuList
         this.props.setSkuList(this.props.skuList)
     }
 
-    isShow() {
-        this.setState({ isShow: true })
+    componentDidMount(){
+        bus.on('sendIsShow',()=>{
+            this.setState({ isShow: true })
+        })
     }
 }
+
+export default WithRouter(InfoPopup)

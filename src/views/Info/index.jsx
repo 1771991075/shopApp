@@ -8,11 +8,12 @@ import InfoSwiper from '../../component/Info/InfoSwiper';
 import ShopInfo from '../../component/Info/ShopInfo';
 import GoodShop from '../../component/Info/GoodShop';
 import InfoPopup from '../../component/Info/Popup';
+import bus from '../../utils/bus'
 import './index.css'
 class Info extends Component {
 
     swiperRef = createRef()
-    popupRef = createRef()
+    // popupRef = createRef()
 
     state = {
         shop: null,
@@ -102,6 +103,7 @@ class Info extends Component {
         //获取当前规格对象
         let productValue = this.state.productValue;
         let skuInfo = productValue[skuName];
+        console.log(skuInfo);
         let { msgInfo } = this.state;
         msgInfo.price = skuInfo.price;
         msgInfo.otPrice = skuInfo.otPrice;
@@ -110,6 +112,8 @@ class Info extends Component {
         msgInfo.storeName = this.state.shop.storeName;
         msgInfo.image = skuInfo.image;
         msgInfo.sku = skuInfo.suk;
+        msgInfo.productAttrUnique = skuInfo.id;
+        msgInfo.productId = skuInfo.productId;
         this.setState({
             msgInfo
         })
@@ -200,8 +204,8 @@ class Info extends Component {
                         <ActionBar.Button type='danger' text='立即购买' onClick={()=>this.changeIsShow()}  />
                     </ActionBar>
                 </div>
-                <InfoPopup ref={this.popupRef} skuList={skuList} productAttr={productAttr} msgInfo={msgInfo} setSkuList={(skuList) => {
-                    this.setState({ skuList }, () => { this.getShopInfo() })
+                <InfoPopup  skuList={skuList} productAttr={productAttr} msgInfo={msgInfo} setSkuList={(skuList) => {
+                    this.setState({ skuList }, () => this.getShopInfo() )
                 }} />
             </div>
         )
@@ -219,7 +223,8 @@ class Info extends Component {
     //打开弹出层
     changeIsShow() {
         // 调用子组件方法改变子组件状态
-        this.popupRef.current.isShow()
+        // this.popupRef.current.isShow()
+        bus.emit('sendIsShow',true)
     }
 }
 

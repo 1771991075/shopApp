@@ -52,12 +52,6 @@ class Cart extends Component {
             disabled={(cartList.length===0?true:false)}
             price="0000"
             buttonText="提交订单"
-            // tip={
-            //   <>
-            //     你的收货地址不支持同城送,
-            //     <span style={{ color: '#1989fa' }}>修改地址</span>
-            //   </>
-            // }
           >
             <Checkbox disabled={(cartList.length===0?true:false)}>全选</Checkbox>
           </SubmitBar>
@@ -65,6 +59,11 @@ class Cart extends Component {
       </div>
     )
   }
+
+  componentDidMount(){
+    
+  }
+
 }
 
 export default WithRouter(Cart)
