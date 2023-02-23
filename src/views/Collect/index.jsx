@@ -2,27 +2,27 @@ import React, { Component } from 'react'
 import { Toast, NavBar, SubmitBar, ProductCard, Empty, Checkbox, Button, Stepper, SwipeCell } from 'react-vant'
 import { WapHomeO, Ellipsis, ShoppingCartO } from '@react-vant/icons'
 import WithRouter from '../../router/withRouter'
-import { getCartList,deleteShop } from '../../api/cart'
+import {getCollectList} from '../../api/collect'
+import {removeUserCollect} from '../../api/info'
 import './index.css'
 
-class Cart extends Component {
+class Collect extends Component {
 
   state = {
-    //购物车列表
-    cartList: [],
-    //数量
-    num: 1
+    //收藏列表
+    collectList: [],
+    num:1
   }
 
   render() {
-    const { cartList, num } = this.state
+    const { collectList ,num} = this.state
     return (
       <div className='cart'>
         <div className='cartnav'>
           <NavBar
             fixed
             leftArrow={<WapHomeO style={{ fontSize: '20px', color: '#fff' }} />}
-            title='购物车'
+            title='收藏'
             onClickLeft={() => this.props.router.navigate('/index/home')}
             rightText={<Ellipsis style={{ fontSize: '20px', color: '#fff' }} />}
             onClickRight={() => Toast('更多')}
@@ -30,22 +30,22 @@ class Cart extends Component {
         </div>
         <div className='cartmid'>
           {
-            cartList.length === 0 ? <Empty
+            collectList.length === 0 ? <Empty
               imageSize={90}
               image={<ShoppingCartO fontSize={90} color='#999' />}
-              description="购物车是空的~~~" >
+              description="收藏是空的~~~" >
               <Button style={{ width: 160, background: '#ff6034', border: 'none' }} round type="primary" onClick={() => this.props.router.navigate('/index/home')}>
                 去逛逛
               </Button> </Empty> : <div>
               <Checkbox.Group>
                 {
-                  cartList.length!==0 && cartList.map((item, index) => {
+                  collectList.length!==0 && collectList.map((item, index) => {
                     return (
                       <div className='cartItem' key={index}>
                         <SwipeCell
                           rightAction={
-                            <Button style={{ height: '100%' }} square type="danger" onClick={()=>this.delShop(index)}>
-                              删除
+                            <Button style={{ height: '100%' }} square type="danger" onClick={()=>this.delCollect(index)}>
+                              取消收藏
                             </Button>
                           }
                         >
@@ -75,44 +75,50 @@ class Cart extends Component {
           }
         </div>
         <SubmitBar
-          disabled={(cartList.length === 0 ? true : false)}
+          disabled={(collectList.length === 0 ? true : false)}
           price="0000"
           buttonText="提交订单"
         >
-          <Checkbox disabled={(cartList.length === 0 ? true : false)}>全选</Checkbox>
+          <Checkbox disabled={(collectList.length === 0 ? true : false)}>全选</Checkbox>
         </SubmitBar>
       </div>
     )
   }
 
+  //获取收藏列表
   async componentDidMount() {
     Toast.loading({
       message: '加载中...',
       forbidClick: true,
     })
-    //获取购物车列表
-    let res = await getCartList()
-    this.setState({
-      cartList: res.data.data.list
-    },()=>{
-      Toast.clear()
-    })
+    let res = await getCollectList()
+    if(res.data.code===200){
+      this.setState({
+        collectList: res.data.data.list
+      },()=>{
+        Toast.clear()
+      })
+    }
   }
 
-  //删除商品
-  async delShop(index){
-    let {cartList} = this.state
-    let data={ids:cartList[index].id}
-    let res = await deleteShop(data)
+  //取消收藏
+  async delCollect(index){
+    let {collectList} = this.state
+    let nowCollectId = collectList[index].productId
+    let res = await removeUserCollect(nowCollectId)
     if(res.data.code===200){
-      Toast.success('删除成功')
-      let ress = await getCartList()
-      this.setState({cartList:ress.data.data.list})
+      Toast.success('取消收藏')
+      let ress = await getCollectList()
+      if(ress.data.code===200){
+        this.setState({
+          collectList: ress.data.data.list
+        })
+      }
     }else{
-      Toast.fail('删除失败')
+      Toast.fail(res.data.message)
     }
   }
 
 }
 
-export default WithRouter(Cart)
+export default WithRouter(Collect)

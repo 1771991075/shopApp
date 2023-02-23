@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Grid } from 'react-vant';
 import { TodoList ,BalanceList ,Clock ,ThumbCircle ,Question ,Arrow } from '@react-vant/icons';
 import './index.css'
+import WithRouter from '../../router/withRouter';
 
 class Mine extends Component {
   render() {
@@ -23,7 +24,7 @@ class Mine extends Component {
             <li><p className='p1'>0.00</p><p className='p2'>余额</p></li>
             <li><p className='p1'>0</p><p className='p2'>积分</p></li>
             <li><p className='p1'>6</p><p className='p2'>优惠券</p></li>
-            <li><p className='p1'>0</p><p className='p2'>收藏</p></li>
+            <li onClick={()=>this.props.router.navigate('/index/collect')}><p className='p1'>0</p><p className='p2'>收藏</p></li>
           </ul>
         </div>
         <div className='mineordercenter'>
@@ -46,4 +47,4 @@ class Mine extends Component {
   }
 }
 
-export default Mine
+export default WithRouter(Mine)
