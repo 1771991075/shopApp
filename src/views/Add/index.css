@@ -22,10 +22,30 @@
 .address .address_header .rv-nav-bar .rv-nav-bar__content .rv-icon {
   color: #fff;
 }
-.address .addressbtm {
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
+.address .addform {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.address .addform .rv-input__prefix {
+  width: 20%;
+}
+.address .addform .rv-form {
+  border-radius: 5px;
+  overflow: hidden;
+}
+.address .addform .rv-field__children {
+  color: #c8c9cc;
+}
+.address .morendizhi {
+  margin-top: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.address .addbtm {
+  margin-top: 10px;
   padding: 5px;
   box-sizing: border-box;
+}
+.address .addbtm .rv-button {
+  margin-top: 5px;
 }

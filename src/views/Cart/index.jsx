@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Toast, NavBar, SubmitBar, ProductCard, Empty, Checkbox, Button, Stepper, SwipeCell } from 'react-vant'
 import { WapHomeO, Ellipsis, ShoppingCartO } from '@react-vant/icons'
 import WithRouter from '../../router/withRouter'
-import { getCartList } from '../../api/cart'
+import { getCartList,deleteShop } from '../../api/cart'
 import './index.css'
 
 class Cart extends Component {
@@ -39,12 +39,12 @@ class Cart extends Component {
               </Button> </Empty> : <div>
               <Checkbox.Group>
                 {
-                  cartList.map((item, index) => {
+                  cartList.length!==0 && cartList.map((item, index) => {
                     return (
                       <div className='cartItem' key={index}>
                         <SwipeCell
                           rightAction={
-                            <Button style={{ height: '100%' }} square type="danger" onClick={(index)=>this.deleteShop(index)}>
+                            <Button style={{ height: '100%' }} square type="danger" onClick={()=>this.delShop(index)}>
                               删除
                             </Button>
                           }
@@ -92,7 +92,6 @@ class Cart extends Component {
     })
     //获取购物车列表
     let res = await getCartList()
-    console.log(res);
     this.setState({
       cartList: res.data.data.list
     },()=>{
@@ -101,10 +100,17 @@ class Cart extends Component {
   }
 
   //删除商品
-  deleteShop(index){
+  async delShop(index){
     let {cartList} = this.state
-    cartList.splice(index,1)
-    this.setState({cartList})
+    let data={ids:cartList[index].id}
+    let res = await deleteShop(data)
+    if(res.data.code===200){
+      Toast.success('删除成功')
+      let ress = await getCartList()
+      this.setState({cartList:ress.data.data.list})
+    }else{
+      Toast.fail('删除失败')
+    }
   }
 
 }

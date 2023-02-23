@@ -9,8 +9,14 @@ let addCartList = (data) =>sendHttp(`/api/front/cart/save`,'post', data )
 //添加商品数量
 let addShopCount = () =>sendHttp(`/api/front/cart/num`,'post')
 
+//删除商品
+let deleteShop = (data) =>sendHttp(`/api/front/cart/delete`,'post',data,{
+    'content-type':'application/x-www-form-urlencoded'
+})
+
 export {
     getCartList,
     addCartList,
-    addShopCount
+    addShopCount,
+    deleteShop
 }

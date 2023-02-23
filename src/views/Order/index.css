@@ -42,7 +42,7 @@
   padding: 2px 5px;
   font-size: 12px;
 }
-.order .orderaddress .order_address .address {
+.order .orderaddress .order_address .getaddress {
   display: flex;
   margin-top: 5px;
   justify-content: space-between;

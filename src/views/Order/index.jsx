@@ -37,7 +37,7 @@ class Order extends Component {
                             <div className='order_shouhuodizhi'>
                                 <span>收货地址</span>
                             </div>
-                            <div className='address' onClick={this.props.router.navigate('/address')}>
+                            <div className='getaddress' onClick={()=>router.navigate('/address')}>
                                 <span>[默认]</span>
                                 <span><Arrow color='#555' /></span>
                             </div>
@@ -64,7 +64,7 @@ class Order extends Component {
                         </Card>
                         <Card>
                             <Card.Body><span className='order_left_info'>快递费用</span><span>免运费</span></Card.Body>
-                            <Card.Body><span className='order_left_info'>备注信息</span><Input.TextArea placeholder="字数统计" maxLength={50} showWordLimit /></Card.Body>
+                            <Card.Body><span className='order_left_info'>备注信息</span><Input.TextArea placeholder="请输入备注" maxLength={150} showWordLimit /></Card.Body>
                         </Card>
                         <Card round>
                             <Card.Body>支付方式</Card.Body>
