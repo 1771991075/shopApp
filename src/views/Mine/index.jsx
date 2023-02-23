@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Grid } from 'react-vant';
-import { TodoListO ,BalanceListO ,ClockO ,ThumbCircleO ,QuestionO ,Arrow } from '@react-vant/icons';
+import { TodoList ,BalanceList ,Clock ,ThumbCircle ,Question ,Arrow } from '@react-vant/icons';
 import './index.css'
 
 class Mine extends Component {
@@ -33,11 +33,11 @@ class Mine extends Component {
           </div>
           <div>
             <Grid columnNum={5} border={false} square={true}>
-              <Grid.Item icon={<TodoListO  />} text='待付款' />
-              <Grid.Item icon={<BalanceListO  />} text='待发货' />
-              <Grid.Item icon={<ClockO  />} text='待收货' />
-              <Grid.Item icon={<ThumbCircleO  />} text='待评价' />
-              <Grid.Item icon={<QuestionO  />} text='退货/售后' />
+              <Grid.Item icon={<TodoList color='#1989fa' />} text='待付款' />
+              <Grid.Item icon={<BalanceList  />} text='待发货' />
+              <Grid.Item icon={<Clock  />} text='待收货' />
+              <Grid.Item icon={<ThumbCircle  />} text='待评价' />
+              <Grid.Item icon={<Question  />} text='退货/售后' />
             </Grid>
           </div>
         </div>
