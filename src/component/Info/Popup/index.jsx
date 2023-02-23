@@ -4,7 +4,7 @@ import { CartO, StarO ,Star } from '@react-vant/icons';
 import './index.css';
 import bus from '../../../utils/bus';
 import WithRouter from '../../../router/withRouter';
-import {addCartList} from '../../../api/cart';
+import {addCartList,getCartList} from '../../../api/cart';
 import {getOrder} from '../../../api/order';
 
 class InfoPopup extends Component {
@@ -17,7 +17,7 @@ class InfoPopup extends Component {
 
     render() {
         let { isShow ,num } = this.state
-        let { productAttr, skuList, msgInfo ,router ,userCollect,getCollect ,cartCount} = this.props
+        let { productAttr, skuList, msgInfo ,router ,userCollect,getCollect ,cartCount } = this.props
         return (
             <div>
 
@@ -118,7 +118,10 @@ class InfoPopup extends Component {
         if(res.data.code===200){
             Toast.success('加入成功')
             this.setState({
-                isShow:false
+                isShow:false,
+                cartCount:this.state.cartCount+1
+            },()=>{
+                this.props.changeCartCount()
             })
             return
         }

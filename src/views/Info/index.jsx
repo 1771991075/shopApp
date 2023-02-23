@@ -212,10 +212,17 @@ class Info extends Component {
                         <ActionBar.Button type='danger' text='立即购买' onClick={()=>this.changeIsShow()}  />
                     </ActionBar>
                 </div>
-                <InfoPopup  skuList={skuList} productAttr={productAttr} cartCount={cartCount} userCollect={userCollect} msgInfo={msgInfo} setSkuList={(skuList) => {
+                <InfoPopup  skuList={skuList} productAttr={productAttr} cartCount={cartCount} userCollect={userCollect} msgInfo={msgInfo} changeCartCount={this.changeCartCount} setSkuList={(skuList) => {
                     this.setState({ skuList },()=> this.getShopInfo())}} getCollect={()=>this.changeUserCollect()}/>
             </div>
         )
+    }
+
+    //购物车数量
+    changeCartCount = ()=>{
+        this.setState({
+            cartCount:this.state.cartCount+1
+        })
     }
 
     //点击收藏、取消收藏
