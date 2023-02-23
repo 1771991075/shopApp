@@ -9,13 +9,18 @@ class Add extends Component {
         //地址列表
         addressList: [],
         //表单数据，用户新地址
-        name:'',
-        address:'',
-        phone:'',
-        addressInfo:''
+        addressObj:{
+            city:'郑州市',
+            detail:'瓦屋里新居',
+            district:'郑州高新技术产业开发区',
+            isDefault:true,
+            phone:'',
+            province:'河南省',
+            realName:'lzc'
+        }
     }
     render() {
-        let {name,address,phone,addressInfo} = this.state
+        let {addressObj} = this.state
         return (
             <div className='address'>
                 <div className='address_header'>
@@ -33,7 +38,7 @@ class Add extends Component {
                         <Cell>
                             <Input
                                 prefix={'姓名'}
-                                value={name}
+                                value={addressObj.realName}
                                 onChange={(value)=>this.setState({name:value})}
                                 placeholder='收货人姓名'
                             />
@@ -41,7 +46,7 @@ class Add extends Component {
                         <Cell>
                             <Input
                                 prefix={'电话'}
-                                value={phone}
+                                value={addressObj.phone}
                                 onChange={(value)=>this.setState({phone:value})}
                                 placeholder='收货人手机号'
                             />
@@ -75,7 +80,7 @@ class Add extends Component {
                         <Cell>
                             <Input
                                 prefix={'详细地址'}
-                                value={addressInfo}
+                                value={addressObj.detail}
                                 onChange={(value)=>this.setState({addressInfo:value})}
                                 placeholder='街道门牌、楼层房间号等信息'
                             />
@@ -83,19 +88,30 @@ class Add extends Component {
                     </Form>
                     <div className='morendizhi'>
                         <Cell
+                            defaultChecked={addressObj.isDefault}
                             title='设为默认收货地址'
-                            rightIcon={<Switch size={25} />}
+                            rightIcon={<Switch size={25} onClick={()=>this.changeDefault()} />}
                         />
                     </div>
                 </div>
                 <div className='addbtm'>
-                    <Button type='primary' color='#ee0a24' block round onClick={()=>this.saveAddress()}>保存</Button>
+                    <Button type='primary' color='#ee0a24' block round onChange={()=>this.saveAddress()}>保存</Button>
                     <Button type='default' block round >删除</Button>
                 </div>
             </div>
         )
     }
 
+    //设置是否默认地址
+    changeDefault(){
+        let {addressObj} = this.state
+        addressObj.isDefault = !addressObj.isDefault
+        this.setState({
+            addressObj
+        })
+    }
+
+    //保存地址
     saveAddress(){
         let addressObj = {
             name:this.state.name,

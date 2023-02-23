@@ -22,16 +22,17 @@
     }
     .orderaddress {
         width: 100%;
-        height: 110px;
         padding: 50px 10px 0px 10px;
         box-sizing: border-box;
         position: relative;
         background: linear-gradient(180deg, #ff6034, #fd9494);
         .order_address {
-            height: 60px;
             background-color: #fff;
             border-radius: 5px;
             box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 10px;
             // ::after{
             //     content: "";
@@ -43,20 +44,27 @@
             //     bottom: 0;
             // }
             .order_shouhuodizhi{
-                span{
+                .shouhuidizhi{
                     color: #fff;
                     background-color: #1989fa;
+                    border-radius: 2px;
                     padding: 2px 5px;
                     font-size: 12px;
                 }
+                .shouhuoxingming{
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+            }
+            .shdz{
+                color: #868686b4;
+                font-size: 12px;
             }
             .getaddress{
-                display: flex;
                 margin-top: 5px;
-                justify-content: space-between;
-                align-items: baseline;
-                font-size: 13px;
+                font-size: 12px;
                 color: #ff6034;
+                
             }
         }
     }
@@ -77,6 +85,37 @@
             justify-content: space-between;
             .order_left_info{
                 width: 30%;
+            }
+        }
+        .payff{
+            margin: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #e4e4e4;
+            border-radius: 10px;
+            span{
+                display: block;
+                width: 50%;
+                text-align: center;
+            }
+            .payleft{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 14px;
+                border-right: 2px solid #e4e4e4;
+            }
+            .payright{
+                font-size: 14px;
+                color: #b4b4b4;
+            }
+        }
+        .activepay{
+            border: 1px solid #ff6034;
+            .payleft{
+                color: #ff6034;
             }
         }
     }

@@ -22,6 +22,46 @@
 .address .address_header .rv-nav-bar .rv-nav-bar__content .rv-icon {
   color: #fff;
 }
+.address .rv-radio-group {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.address .rv-radio-group .rv-radio {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  position: relative;
+}
+.address .rv-radio-group .rv-radio .addressItem {
+  width: 88%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.address .rv-radio-group .rv-radio .addressItem .address_top {
+  color: #323233;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.address .rv-radio-group .rv-radio .addressItem .address_top .morenaddress {
+  background-color: #ee0a24;
+  color: #fff;
+  margin-left: 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 2px 4px;
+  box-sizing: border-box;
+}
+.address .rv-radio-group .rv-radio .addressItem .address_btm {
+  color: #323233;
+  font-size: 13px;
+}
+.address .rv-radio-group .rv-radio .xiugaiaddress {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .address .addressbtm {
   position: fixed;
   bottom: 0px;

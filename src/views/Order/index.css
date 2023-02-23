@@ -23,31 +23,38 @@
 }
 .order .orderaddress {
   width: 100%;
-  height: 110px;
   padding: 50px 10px 0px 10px;
   box-sizing: border-box;
   position: relative;
   background: linear-gradient(180deg, #ff6034, #fd9494);
 }
 .order .orderaddress .order_address {
-  height: 60px;
   background-color: #fff;
   border-radius: 5px;
   box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
 }
-.order .orderaddress .order_address .order_shouhuodizhi span {
+.order .orderaddress .order_address .order_shouhuodizhi .shouhuidizhi {
   color: #fff;
   background-color: #1989fa;
+  border-radius: 2px;
   padding: 2px 5px;
   font-size: 12px;
 }
+.order .orderaddress .order_address .order_shouhuodizhi .shouhuoxingming {
+  font-size: 14px;
+  font-weight: bold;
+}
+.order .orderaddress .order_address .shdz {
+  color: #868686b4;
+  font-size: 12px;
+}
 .order .orderaddress .order_address .getaddress {
-  display: flex;
   margin-top: 5px;
-  justify-content: space-between;
-  align-items: baseline;
-  font-size: 13px;
+  font-size: 12px;
   color: #ff6034;
 }
 .order .order_content {
@@ -69,4 +76,35 @@
 }
 .order .order_content .rv-card-body .order_left_info {
   width: 30%;
+}
+.order .order_content .payff {
+  margin: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+}
+.order .order_content .payff span {
+  display: block;
+  width: 50%;
+  text-align: center;
+}
+.order .order_content .payff .payleft {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  border-right: 2px solid #e4e4e4;
+}
+.order .order_content .payff .payright {
+  font-size: 14px;
+  color: #b4b4b4;
+}
+.order .order_content .activepay {
+  border: 1px solid #ff6034;
+}
+.order .order_content .activepay .payleft {
+  color: #ff6034;
 }
