@@ -23,7 +23,7 @@ class Mine extends Component {
           <ul>
             <li><p className='p1'>0.00</p><p className='p2'>余额</p></li>
             <li><p className='p1'>0</p><p className='p2'>积分</p></li>
-            <li><p className='p1'>6</p><p className='p2'>优惠券</p></li>
+            <li onClick={()=>this.props.router.navigate('/index/prefer')}><p className='p1'>6</p><p className='p2'>优惠券</p></li>
             <li onClick={()=>this.props.router.navigate('/index/collect')}><p className='p1'>0</p><p className='p2'>收藏</p></li>
           </ul>
         </div>

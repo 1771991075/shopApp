@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Toast, NavBar, SubmitBar, ProductCard, Empty, Checkbox, Button, Stepper, SwipeCell } from 'react-vant'
-import { WapHomeO, Ellipsis, ShoppingCartO } from '@react-vant/icons'
+import { ArrowLeft, Ellipsis, ShoppingCartO } from '@react-vant/icons'
 import WithRouter from '../../router/withRouter'
 import {getCollectList} from '../../api/collect'
 import {removeUserCollect} from '../../api/info'
@@ -21,9 +21,9 @@ class Collect extends Component {
         <div className='cartnav'>
           <NavBar
             fixed
-            leftArrow={<WapHomeO style={{ fontSize: '20px', color: '#fff' }} />}
+            leftArrow={<ArrowLeft style={{ fontSize: '20px', color: '#fff' }} />}
             title='收藏'
-            onClickLeft={() => this.props.router.navigate('/index/home')}
+            onClickLeft={() => this.props.router.navigate(-1)}
             rightText={<Ellipsis style={{ fontSize: '20px', color: '#fff' }} />}
             onClickRight={() => Toast('更多')}
           />

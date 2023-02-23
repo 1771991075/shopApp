@@ -13,6 +13,7 @@ let NotFound = lazy(()=>import('../component/NotFound'))
 let Address = lazy(()=>import('../views/Address'))
 let Add = lazy(()=>import('../views/Add'))
 let Collect = lazy(()=>import('../views/Collect'))
+let Prefer = lazy(()=>import('../views/Prefer'))
 
 let elements = [
     {
@@ -38,6 +39,11 @@ let elements = [
             {
                 path:'collect',
                 element:<Suspense fallback={<MyLoading/>}><Collect/></Suspense>,
+                author:true
+            },
+            {
+                path:'prefer',
+                element:<Suspense fallback={<MyLoading/>}><Prefer/></Suspense>,
                 author:true
             }
         ]

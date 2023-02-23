@@ -24,7 +24,7 @@ class Order extends Component {
     }
 
     render() {
-        let { orderDetailList, sum, defaultAddress,remarkMsg,payActive } = this.state
+        let { orderDetailList, sum, defaultAddress,remarkMsg,payActive} = this.state
         let { router } = this.props
         return (
             <div className='order'>
@@ -116,12 +116,12 @@ class Order extends Component {
         })
         //获取订单信息
         let res = await getOrderInfo(preOrderNo)
-        console.log(res)
         let orderInfo = res.data.data.orderInfoVo
         this.setState({
             orderInfo: orderInfo,
             orderDetailList: orderInfo.orderDetailList,
-            defaultAddress: addressList[defaultIdx]
+            defaultAddress: addressList[defaultIdx],
+            preferList:res.data.data
         }, () => {
             //商品总价
             let { sum, orderDetailList } = this.state
