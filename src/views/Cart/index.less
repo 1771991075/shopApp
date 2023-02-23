@@ -1,7 +1,8 @@
 .cart{
     position: relative;
     width: 100%;
-    padding-bottom: 50px;
+    padding-top: 50px;
+    padding-bottom: 100px;
     box-sizing: border-box;
     .cartnav{
         width: 100%;
@@ -13,15 +14,34 @@
         }
     }
     .cartmid{
-        min-height: 78vh;
-    }
-    .cartbtm{
-        width: 100%;
-        height: 50px;
-        position: absolute;
-        left: 0px;
-        .rv-submit-bar{
-            position: absolute;
+        .cartItem{
+            position: relative;
+            margin-bottom: 10px;
+            .rv-checkbox{
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                left: 10px;
+            }
+            .rv-product-card{
+                padding-left: 40px;
+                box-sizing: border-box;
+            }
+            .rv-stepper{
+                color: #ff6034;
+                .rv-stepper__minus{
+                    color: red;
+                    border: 1px solid red;
+                }
+                .rv-stepper__plus{
+                    color: #ffffff;
+                    background-color: red;
+                    border: 1px solid red;
+                }
+            }
         }
+    }
+    .rv-submit-bar{
+        padding-bottom: 50px;
     }
 }

@@ -4,6 +4,7 @@ import { NavBar, Search, ActionBar, ImagePreview, Tabs, Cell, Rate, Toast } from
 import { CartO, StarO ,Star } from '@react-vant/icons'
 import Content from '../../component/Content'
 import { getShopInfo, getGoodShop, getUserComments ,addUserCollect ,removeUserCollect } from '../../api/info'
+import {getCartList} from '../../api/cart'
 import InfoSwiper from '../../component/Info/InfoSwiper';
 import ShopInfo from '../../component/Info/ShopInfo';
 import GoodShop from '../../component/Info/GoodShop';
@@ -41,7 +42,9 @@ class Info extends Component {
         //用户评价
         InfoUserComments: null,
         //用户收藏
-        userCollect:false
+        userCollect:false,
+        //购物车数量
+        cartCount:0
     }
 
     async componentDidMount() {
@@ -49,7 +52,6 @@ class Info extends Component {
         let id = search.get('id')
         let imgList = []
         let res = await getShopInfo(id)
-        console.log(res);
         this.setState({
             userCollect:res.data.data.userCollect
         })
@@ -63,12 +65,14 @@ class Info extends Component {
             item.attrValues = item.attrValues.split(',')
         })
         let productValue = res.data.data.productValue
+        let cartCountRes = await getCartList()
         this.setState({
             shop: res.data.data.productInfo,
             images: JSON.parse(res.data.data.productInfo.sliderImage),
             productAttr,
             productValue,
-            skuList
+            skuList,
+            cartCount:cartCountRes.data.data.list.length
         }, () => {
             res.data.data.productInfo.content.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/g, function (match, capture) {
                 imgList.push(capture);
@@ -108,7 +112,6 @@ class Info extends Component {
         //获取当前规格对象
         let productValue = this.state.productValue;
         let skuInfo = productValue[skuName];
-        console.log(skuInfo);
         let { msgInfo } = this.state;
         msgInfo.price = skuInfo.price;
         msgInfo.otPrice = skuInfo.otPrice;
@@ -129,7 +132,7 @@ class Info extends Component {
     }
 
     render() {
-        const { shop, images, goodShop, imgList, productAttr, skuList, msgInfo, InfoUserComments ,userCollect } = this.state
+        const { shop, images, goodShop, imgList, productAttr, skuList, msgInfo, InfoUserComments ,userCollect ,cartCount } = this.state
         return (
             <div className='info'>
                 <Tabs
@@ -203,13 +206,13 @@ class Info extends Component {
 
                 <div className='demo-action-bar'>
                     <ActionBar>
-                        <ActionBar.Icon icon={<CartO color='red' />} text='购物车' onClick={()=>this.props.router.navigate('/index/cart')}/>
+                        <ActionBar.Icon icon={<CartO color='red' />} text='购物车' badge={{ content: cartCount }} onClick={()=>this.props.router.navigate('/index/cart')}/>
                         <ActionBar.Icon icon={userCollect?<Star color='red'/>:<StarO color='red' />} text='收藏' onClick={()=>this.changeUserCollect()} />
                         <ActionBar.Button type='warning' text='加入购物车' onClick={()=>this.changeIsShow()} />
                         <ActionBar.Button type='danger' text='立即购买' onClick={()=>this.changeIsShow()}  />
                     </ActionBar>
                 </div>
-                <InfoPopup  skuList={skuList} productAttr={productAttr} userCollect={userCollect} msgInfo={msgInfo} setSkuList={(skuList) => {
+                <InfoPopup  skuList={skuList} productAttr={productAttr} cartCount={cartCount} userCollect={userCollect} msgInfo={msgInfo} setSkuList={(skuList) => {
                     this.setState({ skuList },()=> this.getShopInfo())}} getCollect={()=>this.changeUserCollect()}/>
             </div>
         )
@@ -219,7 +222,6 @@ class Info extends Component {
     async changeUserCollect(){
         if(this.state.userCollect){
             let res = await removeUserCollect(this.state.msgInfo.productId)
-            console.log(res);
             if(res.data.code === 200){
                 Toast.success('取消收藏')
                 this.setState({
@@ -234,7 +236,6 @@ class Info extends Component {
                 id:this.state.msgInfo.productId
             }
             let res = await addUserCollect(data)
-            console.log(res);
             if(res.data.code === 200){
                 Toast.success('收藏成功')
                 this.setState({

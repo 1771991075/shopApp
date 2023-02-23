@@ -1,7 +1,8 @@
 .cart {
   position: relative;
   width: 100%;
-  padding-bottom: 50px;
+  padding-top: 50px;
+  padding-bottom: 100px;
   box-sizing: border-box;
 }
 .cart .cartnav {
@@ -13,15 +14,32 @@
 .cart .cartnav .rv-nav-bar__content .rv-nav-bar__title {
   color: #fff;
 }
-.cart .cartmid {
-  min-height: 78vh;
+.cart .cartmid .cartItem {
+  position: relative;
+  margin-bottom: 10px;
 }
-.cart .cartbtm {
-  width: 100%;
-  height: 50px;
+.cart .cartmid .cartItem .rv-checkbox {
   position: absolute;
-  left: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
 }
-.cart .cartbtm .rv-submit-bar {
-  position: absolute;
+.cart .cartmid .cartItem .rv-product-card {
+  padding-left: 40px;
+  box-sizing: border-box;
+}
+.cart .cartmid .cartItem .rv-stepper {
+  color: #ff6034;
+}
+.cart .cartmid .cartItem .rv-stepper .rv-stepper__minus {
+  color: red;
+  border: 1px solid red;
+}
+.cart .cartmid .cartItem .rv-stepper .rv-stepper__plus {
+  color: #ffffff;
+  background-color: red;
+  border: 1px solid red;
+}
+.cart .rv-submit-bar {
+  padding-bottom: 50px;
 }

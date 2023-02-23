@@ -1,0 +1,23 @@
+.address {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background: #f1f1f1;
+}
+.address .address {
+  width: 100%;
+}
+.address .address .rv-nav-bar {
+  width: 100%;
+}
+.address .address .rv-nav-bar .rv-nav-bar__content {
+  width: 100%;
+  background-color: #ff6034;
+  box-sizing: border-box;
+}
+.address .address .rv-nav-bar .rv-nav-bar__content .rv-nav-bar__title {
+  color: #fff;
+}
+.address .address .rv-nav-bar .rv-nav-bar__content .rv-icon {
+  color: #fff;
+}

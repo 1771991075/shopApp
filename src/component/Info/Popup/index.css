@@ -67,6 +67,10 @@
   background-color: #fdebe9 !important;
   color: #e93323 !important;
 }
+.sku_content .rv-cell .rv-cell__title {
+  padding-left: 5px;
+  color: #b4b4b4;
+}
 .rv-stepper--round .rv-stepper__plus {
   background-color: red !important;
 }

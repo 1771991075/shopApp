@@ -5,6 +5,7 @@ import './index.css';
 import bus from '../../../utils/bus';
 import WithRouter from '../../../router/withRouter';
 import {addCartList} from '../../../api/cart';
+import {getOrder} from '../../../api/order';
 
 class InfoPopup extends Component {
 
@@ -16,7 +17,7 @@ class InfoPopup extends Component {
 
     render() {
         let { isShow ,num } = this.state
-        let { productAttr, skuList, msgInfo ,router ,userCollect,getCollect} = this.props
+        let { productAttr, skuList, msgInfo ,router ,userCollect,getCollect ,cartCount} = this.props
         return (
             <div>
 
@@ -61,7 +62,7 @@ class InfoPopup extends Component {
                             }
                         </div>
                         <div>
-                            <Cell title='数量' center>
+                            <Cell title='数量:' center>
                                 <Stepper
                                     value={num}
                                     theme='round'
@@ -73,16 +74,30 @@ class InfoPopup extends Component {
                         </div>
                         <div className='demo-action-bar'>
                             <ActionBar>
-                                <ActionBar.Icon icon={<CartO color='red' />} text='购物车' onClick={()=>router.navigate('/index/cart')} />
+                                <ActionBar.Icon icon={<CartO color='red' />} text='购物车' badge={{ content: cartCount }} onClick={()=>router.navigate('/index/cart')} />
                                 <ActionBar.Icon icon={userCollect?<Star color='red'/>:<StarO color='red' />} text='收藏' onClick={()=>getCollect()}/>
                                 <ActionBar.Button type='warning' text='加入购物车' onClick={()=>{this.addCart()}} />
-                                <ActionBar.Button type='danger' text='立即购买' />
+                                <ActionBar.Button type='danger' text='立即购买' onClick={()=>this.getOrderNum()}/>
                             </ActionBar>
                         </div>
                     </div>
                 </Popup>
             </div>
         )
+    }
+
+    //生成订单号
+    async getOrderNum(){
+        let {msgInfo} = this.props
+        let {num} = this.state
+        let orderDetails = [{attrValueId: msgInfo.productAttrUnique, productId: msgInfo.productId, productNum: num}]
+        let data = {
+            preOrderType: "buyNow",
+            orderDetails
+        }
+        let res = await getOrder(data)
+        let preOrderNo = res.data.data.preOrderNo
+        this.props.router.navigate(`/order?preOrderNo=${preOrderNo}`)
     }
 
     //加入购物车

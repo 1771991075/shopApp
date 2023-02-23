@@ -1,21 +1,26 @@
 import React, { Component } from 'react'
-import { Toast, NavBar, SubmitBar, ProductCard, Empty, Checkbox, Button } from 'react-vant'
+import { Toast, NavBar, SubmitBar, ProductCard, Empty, Checkbox, Button, Stepper, SwipeCell } from 'react-vant'
 import { WapHomeO, Ellipsis, ShoppingCartO } from '@react-vant/icons'
 import WithRouter from '../../router/withRouter'
+import { getCartList } from '../../api/cart'
 import './index.css'
 
 class Cart extends Component {
 
   state = {
-    cartList: []
+    //购物车列表
+    cartList: [],
+    //数量
+    num: 1
   }
 
   render() {
-    const { cartList } = this.state
+    const { cartList, num } = this.state
     return (
       <div className='cart'>
         <div className='cartnav'>
           <NavBar
+            fixed
             leftArrow={<WapHomeO style={{ fontSize: '20px', color: '#fff' }} />}
             title='购物车'
             onClickLeft={() => this.props.router.navigate('/index/home')}
@@ -25,43 +30,81 @@ class Cart extends Component {
         </div>
         <div className='cartmid'>
           {
-            !cartList.length ? <Empty
+            cartList.length === 0 ? <Empty
               imageSize={90}
-              image={<ShoppingCartO fontSize={90} color='#999'/>}
+              image={<ShoppingCartO fontSize={90} color='#999' />}
               description="购物车是空的~~~" >
-              <Button style={{ width: 160 ,background:'#ff6034' ,border:'none'}} round type="primary" onClick={()=>this.props.router.navigate('/index/home')}>
+              <Button style={{ width: 160, background: '#ff6034', border: 'none' }} round type="primary" onClick={() => this.props.router.navigate('/index/home')}>
                 去逛逛
-              </Button> </Empty> :
-              cartList.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <ProductCard
-                      num="2"
-                      price="2.00"
-                      desc="描述信息"
-                      title="商品名称"
-                      thumb="https://img.yzcdn.cn/vant/ipad.jpeg"
-                    />
-                  </div>
-                )
-              })
+              </Button> </Empty> : <div>
+              <Checkbox.Group>
+                {
+                  cartList.map((item, index) => {
+                    return (
+                      <div className='cartItem' key={index}>
+                        <SwipeCell
+                          rightAction={
+                            <Button style={{ height: '100%' }} square type="danger" onClick={(index)=>this.deleteShop(index)}>
+                              删除
+                            </Button>
+                          }
+                        >
+                          <ProductCard
+                            num={item.cartNum}
+                            price={item.price}
+                            desc={item.suk}
+                            title={item.storeName}
+                            thumb={item.image}
+                            footer={<Stepper
+                              value={num}
+                              onChange={value => this.setState({ num: value })}
+                              theme='round'
+                              buttonSize='18'
+                              disableInput
+                            />}
+                          />
+                          <Checkbox name='a'></Checkbox>
+                        </SwipeCell>
+                      </div>
+                    )
+                  })
+                }
+              </Checkbox.Group>
+            </div>
+
           }
         </div>
-        <div className='cartbtm'>
-          <SubmitBar
-            disabled={(cartList.length===0?true:false)}
-            price="0000"
-            buttonText="提交订单"
-          >
-            <Checkbox disabled={(cartList.length===0?true:false)}>全选</Checkbox>
-          </SubmitBar>
-        </div>
+        <SubmitBar
+          disabled={(cartList.length === 0 ? true : false)}
+          price="0000"
+          buttonText="提交订单"
+        >
+          <Checkbox disabled={(cartList.length === 0 ? true : false)}>全选</Checkbox>
+        </SubmitBar>
       </div>
     )
   }
 
-  componentDidMount(){
-    
+  async componentDidMount() {
+    Toast.loading({
+      message: '加载中...',
+      forbidClick: true,
+    })
+    //获取购物车列表
+    let res = await getCartList()
+    console.log(res);
+    this.setState({
+      cartList: res.data.data.list
+    },()=>{
+      Toast.clear()
+    })
+  }
+
+  //删除商品
+  deleteShop(index){
+    let {cartList} = this.state
+    cartList.splice(index,1)
+    this.setState({cartList})
   }
 
 }
