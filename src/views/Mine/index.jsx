@@ -3,8 +3,15 @@ import { Grid } from 'react-vant';
 import { TodoList ,BalanceList ,Clock ,ThumbCircle ,Question ,Arrow } from '@react-vant/icons';
 import './index.css'
 import WithRouter from '../../router/withRouter';
+import {getCollectList} from '../../api/collect'
 
 class Mine extends Component {
+
+  state={
+    //收藏列表个数
+    preferNum:0
+  }
+
   render() {
     return (
       <div className='mine'>
@@ -23,8 +30,8 @@ class Mine extends Component {
           <ul>
             <li><p className='p1'>0.00</p><p className='p2'>余额</p></li>
             <li><p className='p1'>0</p><p className='p2'>积分</p></li>
-            <li onClick={()=>this.props.router.navigate('/index/prefer')}><p className='p1'>6</p><p className='p2'>优惠券</p></li>
-            <li onClick={()=>this.props.router.navigate('/index/collect')}><p className='p1'>0</p><p className='p2'>收藏</p></li>
+            <li onClick={()=>this.props.router.navigate('/index/prefer')}><p className='p1'>0</p><p className='p2'>优惠券</p></li>
+            <li onClick={()=>this.props.router.navigate('/index/collect')}><p className='p1'>{this.state.preferNum}</p><p className='p2'>收藏</p></li>
           </ul>
         </div>
         <div className='mineordercenter'>
@@ -44,6 +51,13 @@ class Mine extends Component {
         </div>
       </div>
     )
+  }
+
+  async componentDidMount(){
+    let res = await getCollectList()
+    this.setState({
+      preferNum:res.data.data.list.length
+    })
   }
 }
 
