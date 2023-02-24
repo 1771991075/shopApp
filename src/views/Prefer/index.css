@@ -1,8 +1,9 @@
 .prefer {
   width: 100%;
-  box-sizing: border-box;
   min-height: 100vh;
   background: #f1f1f1;
+  padding-top: 50px;
+  box-sizing: border-box;
 }
 .prefer .prefer_header {
   width: 100%;
@@ -22,5 +23,10 @@
   color: #fff;
 }
 .prefer .youhuiquan {
-  margin-top: 50px;
+  padding: 0px 5px;
+  box-sizing: border-box;
+}
+.prefer .youhuiquan .rv-cell {
+  padding: 10px;
+  border-radius: 10px;
 }
