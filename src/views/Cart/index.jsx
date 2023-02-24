@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Toast, NavBar, SubmitBar, ProductCard, Empty, Checkbox, Button, Stepper, SwipeCell } from 'react-vant'
 import { WapHomeO, Ellipsis, ShoppingCartO } from '@react-vant/icons'
 import WithRouter from '../../router/withRouter'
-import { getCartList,deleteShop } from '../../api/cart'
+import { getCartList, deleteShop, addShopCount } from '../../api/cart'
 import './index.css'
 
 class Cart extends Component {
@@ -10,12 +10,14 @@ class Cart extends Component {
   state = {
     //购物车列表
     cartList: [],
-    //数量
-    num: 1
+    //选中列表
+    checkedList:[],
+    //总价
+    sum:0
   }
 
   render() {
-    const { cartList, num } = this.state
+    const { cartList,checkedList,sum} = this.state
     return (
       <div className='cart'>
         <div className='cartnav'>
@@ -37,14 +39,14 @@ class Cart extends Component {
               <Button style={{ width: 160, background: '#ff6034', border: 'none' }} round type="primary" onClick={() => this.props.router.navigate('/index/home')}>
                 去逛逛
               </Button> </Empty> : <div>
-              <Checkbox.Group>
+              <Checkbox.Group onChange={v =>this.setState({checkedList:v},()=>{this.changeSum()})} value={checkedList}>
                 {
-                  cartList.length!==0 && cartList.map((item, index) => {
+                  cartList.length !== 0 && cartList.map((item, index) => {
                     return (
                       <div className='cartItem' key={index}>
                         <SwipeCell
                           rightAction={
-                            <Button style={{ height: '100%' }} square type="danger" onClick={()=>this.delShop(index)}>
+                            <Button style={{ height: '100%' }} square type="danger" onClick={() => this.delShop(item.id)}>
                               删除
                             </Button>
                           }
@@ -56,14 +58,15 @@ class Cart extends Component {
                             title={item.storeName}
                             thumb={item.image}
                             footer={<Stepper
-                              value={num}
-                              onChange={value => this.setState({ num: value })}
+                              min={1}
+                              value={item.cartNum}
+                              onChange={value => this.changeNum(item.id, value, index)}
                               theme='round'
                               buttonSize='18'
                               disableInput
                             />}
                           />
-                          <Checkbox name={index} onClick={(e)=>{console.log(e)}}></Checkbox>  
+                          <Checkbox name={item} ></Checkbox>
                         </SwipeCell>
                       </div>
                     )
@@ -76,10 +79,24 @@ class Cart extends Component {
         </div>
         <SubmitBar
           disabled={(cartList.length === 0 ? true : false)}
-          price="0000"
+          price={sum*100}
           buttonText="提交订单"
         >
-          <Checkbox disabled={(cartList.length === 0 ? true : false)}>全选</Checkbox>
+          <Checkbox disabled={(cartList.length === 0 ? true : false)} onChange={(checked)=>{
+            if(checked){
+              this.setState({
+                checkedList:cartList
+              },()=>{
+                this.changeSum()
+              })
+            }else{
+              this.setState({
+                checkedList:[]
+              },()=>{
+                this.changeSum()
+              })
+            }
+          }} checked={(checkedList.length===cartList.length && cartList.length!==0)}>全选</Checkbox>
         </SubmitBar>
       </div>
     )
@@ -94,22 +111,59 @@ class Cart extends Component {
     let res = await getCartList()
     this.setState({
       cartList: res.data.data.list
-    },()=>{
+    }, () => {
       Toast.clear()
     })
   }
 
-  //删除商品
-  async delShop(index){
+  //计算价格
+  changeSum(){
+    let {checkedList} = this.state
+    let sum = 0
+    checkedList.forEach(item=>{
+      let goodsItemPrice = item.price*item.cartNum
+      sum += goodsItemPrice
+    })
+    this.setState({
+      sum:sum
+    })
+  }
+
+  //增加、减少商品数量
+  async changeNum(id, value,index) {
     let {cartList} = this.state
-    let data={ids:cartList[index].id}
-    let res = await deleteShop(data)
-    if(res.data.code===200){
-      Toast.success('删除成功')
-      let ress = await getCartList()
-      this.setState({cartList:ress.data.data.list})
+    let nowChangeItem = cartList[index]
+    let res = await addShopCount({ id: id, number: value })
+    if (res.data.code === 200) {
+      nowChangeItem.cartNum = value
+      Toast.success(res.data.message)
+      this.setState({
+        cartList: cartList
+      },()=>{
+        this.changeSum()
+      })
     }else{
-      Toast.fail('删除失败')
+      Toast.info(res.data.message)
+    }
+  }
+
+  //删除商品
+  async delShop(id) {
+    let data = { ids: id }
+    let res = await deleteShop(data)
+    if (res.data.code === 200) {
+      Toast.success('删除成功')
+      let index = this.state.cartList.findIndex(item=>{
+        return item.id===id
+      })
+      if(index!==-1){
+        this.state.cartList.splice(index,1)
+        this.setState({ cartList: this.state.cartList },()=>{
+          this.changeSum()
+        })
+      }
+    } else {
+      Toast.fail(res.data.message)
     }
   }
 
