@@ -95,7 +95,7 @@ class Add extends Component {
                     </div>
                 </div>
                 <div className='addbtm'>
-                    <Button type='primary' color='#ee0a24' block round onChange={()=>this.saveAddress()}>保存</Button>
+                    <Button type='primary' color='#ee0a24' block round onClick={()=>this.saveAddress()}>保存</Button>
                     <Button type='default' block round >删除</Button>
                 </div>
             </div>
@@ -120,6 +120,7 @@ class Add extends Component {
             addressInfo:this.sate.addressInfo
         }
         console.log(addressObj);
+        this.props.router.navigate(-1)
     }
 
 }

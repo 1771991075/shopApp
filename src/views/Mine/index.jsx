@@ -20,7 +20,7 @@ class Mine extends Component {
           user && <div>
             <div className='mineTop'>
               <div className='minetop_user'>
-                <div className='mineimg'>
+                <div className='mineimg' onClick={()=>this.props.router.navigate('/user')}>
                   <img src="https://api.java.crmeb.net/crmebimage/store/2020/08/15/adae23e354114cd5bd8f3cae740741c23opxeh8kw2.jpg" alt="" />
                 </div>
                 <div className='mineuserInfo'>

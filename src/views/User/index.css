@@ -1,0 +1,62 @@
+.user {
+  width: 100%;
+  min-height: 100vh;
+  background: #f1f1f1;
+  box-sizing: border-box;
+}
+.user .user_mid {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.user .user_mid .rv-button {
+  margin: 5px 0px;
+}
+.user .user_mid .getOut {
+  color: #222;
+  background-color: #f1f1f1;
+  border: none;
+}
+.user .rv-uploader {
+  width: 20%;
+  height: 100%;
+}
+.user .rv-uploader .rv-uploader__upload {
+  width: 100%;
+  height: 15%;
+  margin-top: 10px;
+}
+.user .rv-uploader .rv-uploader__upload .rv-uploader__wrapper {
+  width: 50px;
+  height: 50%;
+}
+.user .rv-uploader .rv-uploader__upload .rv-uploader__preview {
+  width: 50px !important;
+}
+.user .rv-uploader .rv-uploader__upload .rv-uploader__input {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.user .rv-uploader img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.user .img {
+  height: 44px;
+  padding: 0px 17px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.user .img .touxiang {
+  color: #323232;
+  font-size: 14px;
+}
+.user .rv-cell__title {
+  color: #323232 !important;
+}
+.user .rv-input__control {
+  color: #969799 !important;
+}
