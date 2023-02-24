@@ -3,6 +3,7 @@ import { Toast, NavBar, SubmitBar, ProductCard, Empty, Checkbox, Button, Stepper
 import { WapHomeO, Ellipsis, ShoppingCartO } from '@react-vant/icons'
 import WithRouter from '../../router/withRouter'
 import { getCartList, deleteShop, addShopCount } from '../../api/cart'
+import { getOrder } from '../../api/order'
 import './index.css'
 
 class Cart extends Component {
@@ -11,13 +12,13 @@ class Cart extends Component {
     //购物车列表
     cartList: [],
     //选中列表
-    checkedList:[],
+    checkedList: [],
     //总价
-    sum:0
+    sum: 0
   }
 
   render() {
-    const { cartList,checkedList,sum} = this.state
+    const { cartList, checkedList, sum } = this.state
     return (
       <div className='cart'>
         <div className='cartnav'>
@@ -39,7 +40,7 @@ class Cart extends Component {
               <Button style={{ width: 160, background: '#ff6034', border: 'none' }} round type="primary" onClick={() => this.props.router.navigate('/index/home')}>
                 去逛逛
               </Button> </Empty> : <div>
-              <Checkbox.Group onChange={v =>this.setState({checkedList:v},()=>{this.changeSum()})} value={checkedList}>
+              <Checkbox.Group onChange={v => this.setState({ checkedList: v }, () => { this.changeSum() })} value={checkedList}>
                 {
                   cartList.length !== 0 && cartList.map((item, index) => {
                     return (
@@ -78,25 +79,26 @@ class Cart extends Component {
           }
         </div>
         <SubmitBar
-          disabled={(cartList.length === 0 ? true : false)}
-          price={sum*100}
+          disabled={(checkedList.length === 0 ? true : false)}
+          price={sum * 100}
           buttonText="提交订单"
+          onSubmit={() => this.submitOrder()}
         >
-          <Checkbox disabled={(cartList.length === 0 ? true : false)} onChange={(checked)=>{
-            if(checked){
+          <Checkbox disabled={(cartList.length === 0 ? true : false)} onChange={(checked) => {
+            if (checked) {
               this.setState({
-                checkedList:cartList
-              },()=>{
+                checkedList: cartList
+              }, () => {
                 this.changeSum()
               })
-            }else{
+            } else {
               this.setState({
-                checkedList:[]
-              },()=>{
+                checkedList: []
+              }, () => {
                 this.changeSum()
               })
             }
-          }} checked={(checkedList.length===cartList.length && cartList.length!==0)}>全选</Checkbox>
+          }} checked={(checkedList.length === cartList.length && cartList.length !== 0)}>全选</Checkbox>
         </SubmitBar>
       </div>
     )
@@ -116,22 +118,39 @@ class Cart extends Component {
     })
   }
 
-  //计算价格
-  changeSum(){
-    let {checkedList} = this.state
-    let sum = 0
+  //提交购物车订单
+  async submitOrder() {
+    let { checkedList} = this.state
+    let orderDetails = []
     checkedList.forEach(item=>{
-      let goodsItemPrice = item.price*item.cartNum
+      let obj = {shoppingCartId:item.id}
+      orderDetails.push(obj)
+    })
+    let data = {
+      preOrderType: "shoppingCart",
+      orderDetails:orderDetails
+    }
+    let res = await getOrder(data)
+    let preOrderNo = res.data.data.preOrderNo
+    this.props.router.navigate(`/order?preOrderNo=${preOrderNo}`)
+  }
+
+  //计算价格
+  changeSum() {
+    let { checkedList } = this.state
+    let sum = 0
+    checkedList.forEach(item => {
+      let goodsItemPrice = item.price * item.cartNum
       sum += goodsItemPrice
     })
     this.setState({
-      sum:sum
+      sum: sum
     })
   }
 
   //增加、减少商品数量
-  async changeNum(id, value,index) {
-    let {cartList} = this.state
+  async changeNum(id, value, index) {
+    let { cartList } = this.state
     let nowChangeItem = cartList[index]
     let res = await addShopCount({ id: id, number: value })
     if (res.data.code === 200) {
@@ -139,10 +158,10 @@ class Cart extends Component {
       Toast.success(res.data.message)
       this.setState({
         cartList: cartList
-      },()=>{
+      }, () => {
         this.changeSum()
       })
-    }else{
+    } else {
       Toast.info(res.data.message)
     }
   }
@@ -153,12 +172,12 @@ class Cart extends Component {
     let res = await deleteShop(data)
     if (res.data.code === 200) {
       Toast.success('删除成功')
-      let index = this.state.cartList.findIndex(item=>{
-        return item.id===id
+      let index = this.state.cartList.findIndex(item => {
+        return item.id === id
       })
-      if(index!==-1){
-        this.state.cartList.splice(index,1)
-        this.setState({ cartList: this.state.cartList },()=>{
+      if (index !== -1) {
+        this.state.cartList.splice(index, 1)
+        this.setState({ cartList: this.state.cartList }, () => {
           this.changeSum()
         })
       }

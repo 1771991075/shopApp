@@ -9,8 +9,16 @@ let getOrderInfo = (preOrderNo) => sendHttp(`/api/front/order/load/pre/${preOrde
 //获取优惠券
 let getPrefer = (id) => sendHttp(`/api/front/coupons/order/${id}`,'get')
 
+//生成订单
+let getPayOrder = (data) =>sendHttp(`/api/front/order/create`,'post',data)
+
+//确认订单
+let payOrder = (data) => sendHttp(`/api/front/pay/payment`,'post',data)
+
 export {
     getOrder,
     getOrderInfo,
-    getPrefer
+    getPrefer,
+    getPayOrder,
+    payOrder
 }

@@ -73,9 +73,15 @@
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .order .order_content .rv-card-body .order_left_info {
   width: 30%;
+}
+.order .order_content .beizhuxixi {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
 .order .order_content .payff {
   margin: 10px;
