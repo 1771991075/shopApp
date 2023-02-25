@@ -68,6 +68,11 @@ class Address extends Component {
         let res = await changeDefault({ id: id })
         if (res.data.code === 200) {
             Toast.success('设置成功')
+            let resa = await getAddressList()
+            let addressList = resa.data.data.list
+            this.setState({
+                addressList: addressList
+            })
         } else {
             Toast.fail(res.data.message)
         }
@@ -87,7 +92,7 @@ class Address extends Component {
         })
         //如果没有默认地址，则设置地址列表中第一项为默认地址
         if(arr.length===0){
-            this.changeDefaultAddress1({id:addressList[0].id})
+            this.changeDefaultAddress1(addressList[0].id)
         }
         this.setState({
             addressList: addressList

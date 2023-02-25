@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import WithRouter from '../../router/withRouter'
-import { NavBar, Toast, Button, Form, Input, Cell, Switch, Area ,Field} from 'react-vant';
+import { NavBar, Toast, Button, Form, Input, Cell, Switch, Area, Field } from 'react-vant';
 import { Ellipsis, ArrowLeft, } from '@react-vant/icons'
 import { areaList } from '@vant/area-data'
-import {addAddres,getAddressList,deleteAddress,getAddressInfo} from '../../api/address'
+import { addAddres, getAddressList, deleteAddress, getAddressInfo } from '../../api/address'
 import './index.css'
 
 class ChangeAddress extends Component {
@@ -25,10 +25,10 @@ class ChangeAddress extends Component {
         //用户名
         realName: '',
         //地区对应字符串值
-        value:[]
+        value: []
     }
     render() {
-        let { realName, phone, isDefault,  detail,  value } = this.state
+        let { realName, phone, isDefault, detail, value } = this.state
         return (
             <div className='address'>
                 <div className='address_header'>
@@ -67,7 +67,7 @@ class ChangeAddress extends Component {
                             title='省/市/区'
                             value={value}
                             areaList={areaList}
-                            onConfirm={(options)=>this.setState({value:options})}
+                            onConfirm={(options) => this.setState({ value: options })}
                             className="getdiqu"
                         >
                             {(_, selectRows, actions) => {
@@ -93,14 +93,14 @@ class ChangeAddress extends Component {
                         <Cell
                             defaultChecked={isDefault}
                             title='设为默认收货地址'
-                            rightIcon={<Switch size={25} 
-                            checked={isDefault} onClick={() => this.changeDefault()} />}
+                            rightIcon={<Switch size={25}
+                                checked={isDefault} onClick={() => this.changeDefault()} />}
                         />
                     </div>
                 </div>
                 <div className='addbtm'>
                     <Button type='primary' color='#ee0a24' block round onClick={() => this.saveAddress()}>保存</Button>
-                    <Button type='default' block round onClick={()=>this.deleteAddress()}>删除</Button>
+                    <Button type='default' block round onClick={() => this.deleteAddress()}>删除</Button>
                 </div>
             </div>
         )
@@ -116,89 +116,97 @@ class ChangeAddress extends Component {
     }
 
     //删除地址
-    async deleteAddress(){
-        let {item} = this.props.router.location.state
-        let res = await getAddressList()
-        if(res.data.code===200){
-            let addressList = res.data.data.list
-            let idx = addressList.findIndex(i=>{
-                return i === item
-            })
-            if(idx!==-1){
-                let data1 = {id:item.id}
-                let delres = await deleteAddress(data1)
-                if(delres.data.code===200){
-                    Toast.success('删除成功')
-                    this.props.router.navigate(-1)
-                }else{
-                    Toast.fail(delres.data.message)
+    async deleteAddress() {
+        let [search] = this.props.router.searchParams
+        let id = search.get('id')
+        let resw = await getAddressInfo(id)
+        if (resw.data.code === 200) {
+            let item = resw.data.data
+            let res = await getAddressList()
+            if (res.data.code === 200) {
+                let addressList = res.data.data.list
+                let idx = addressList.findIndex(i => {
+                    return i.id === item.id
+                })
+                if (idx !== -1) {
+                    let data1 = { id: item.id }
+                    let delres = await deleteAddress(data1)
+                    if (delres.data.code === 200) {
+                        Toast.success('删除成功')
+                        this.props.router.navigate(-1)
+                    } else {
+                        Toast.fail(delres.data.message)
+                    }
                 }
+            } else {
+                Toast.fail(res.data.message)
             }
         }else{
-            Toast.fail(res.data.message)
+            Toast.fail(resw.data.message)
         }
+
     }
 
     //保存地址
     async saveAddress() {
-        let { realName, phone, isDefault, city, detail, district, province,value } = this.state
-        for (let k in areaList.province_list){
-            if(k===value[0]){
+        let { realName, phone, isDefault, city, detail, district, province, value } = this.state
+        for (let k in areaList.province_list) {
+            if (k === value[0]) {
                 province = areaList.province_list[k]
             }
         }
-        for (let i in areaList.city_list){
-            if(i===value[1]){
+        for (let i in areaList.city_list) {
+            if (i === value[1]) {
                 city = areaList.city_list[i]
             }
         }
-        for (let o in areaList.county_list){
-            if(o===value[2]){
+        for (let o in areaList.county_list) {
+            if (o === value[2]) {
                 district = areaList.county_list[o]
             }
         }
         let data = {
-            address:{
+            address: {
                 province,
                 city,
                 district,
-                cityId:2
+                cityId: 2
             },
-            detail:detail,
-            id:1,
+            detail: detail,
+            id: 1,
             isDefault,
             phone,
             realName
         }
         let res = await addAddres(data)
-        if(res.data.code===200){
+        if (res.data.code === 200) {
             Toast.success('修改成功')
             this.props.router.navigate(-1)
-        }else{
+        } else {
             Toast.fail(res.data.message)
         }
-        
+
     }
 
-    async componentDidMount(){
+    async componentDidMount() {
         let [search] = this.props.router.searchParams
         let id = search.get('id')
         let res = await getAddressInfo(id)
-        if(res.data.code===200){
+        if (res.data.code === 200) {
             let addressInfo = res.data.data
-            let {value} = this.state
-            for (let k in areaList.province_list){
-                if(areaList.province_list[k]===addressInfo.province){
+            let { value } = this.state
+            for (let k in areaList.province_list) {
+                if (areaList.province_list[k] === addressInfo.province) {
                     value.push(k)
                 }
             }
-            for (let i in areaList.city_list){
-                if(areaList.city_list[i]===addressInfo.city){
+            for (let i in areaList.city_list) {
+                if (areaList.city_list[i] === addressInfo.city) {
                     value.push(i)
                 }
             }
-            for (let o in areaList.county_list){
-                if(areaList.county_list[o]===addressInfo.district){
+            for (let o in areaList.county_list) {
+                if (areaList.county_list[o] === addressInfo.district) {
                     value.push(o)
                 }
             }
@@ -209,7 +217,7 @@ class ChangeAddress extends Component {
                 realName: addressInfo.realName,
                 value
             })
-        }else{
+        } else {
             Toast.fail(res.data.message)
             this.props.router.navigate(-1)
         }
