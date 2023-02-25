@@ -59,27 +59,25 @@ class Add extends Component {
                                 placeholder='收货人手机号'
                             />
                         </Cell>
-                        <Cell>
-                            <Area
-                                popup={{
-                                    round: true,
-                                }}
-                                title='省/市/区'
-                                value={value}
-                                areaList={areaList}
-                                onConfirm={(options)=>this.setState({value:options})}
-                            >
-                                {(_, selectRows, actions) => {
-                                    return (
-                                        <Field
-                                            label='选择地区'
-                                            value={selectRows.map(row => row?.text).join(',')}
-                                            onClick={() => actions.open()}
-                                        />
-                                    )
-                                }}
-                            </Area>
-                        </Cell>
+                        <Area
+                            popup={{
+                                round: true,
+                            }}
+                            title='省/市/区'
+                            value={value}
+                            areaList={areaList}
+                            onConfirm={(options)=>this.setState({value:options})}
+                        >
+                            {(_, selectRows, actions) => {
+                                return (
+                                    <Field
+                                        label='选择地区'
+                                        value={selectRows.map(row => row?.text).join(',')}
+                                        onClick={() => actions.open()}
+                                    />
+                                )
+                            }}
+                        </Area>
                         <Cell>
                             <Input
                                 prefix={'详细地址'}
@@ -153,11 +151,6 @@ class Add extends Component {
             Toast.fail(res.data.message)
         }
         
-    }
-
-    componentDidMount(){
-        let item = this.props.router.location.state
-        console.log(item);
     }
 
 }

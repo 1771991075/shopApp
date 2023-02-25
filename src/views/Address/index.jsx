@@ -47,7 +47,7 @@ class Address extends Component {
                                                     </div>
                                                 </Radio>
                                                 <div className='xiugaiaddress'>
-                                                    <Edit fontSize={25} color={'#969799'} onClick={() => this.changeAddress(item)} />
+                                                    <Edit fontSize={25} color={'#969799'} onClick={() => this.changeAddress(item.id)} />
                                                 </div>
                                             </div>
                                         )
@@ -74,8 +74,8 @@ class Address extends Component {
     }
 
     //修改地址
-    changeAddress(item) {
-        this.props.router.navigate('/change/address', { state: { item } })
+    changeAddress(id) {
+        this.props.router.navigate(`/change/address?id=${id}`)
     }
 
     //获取地址列表

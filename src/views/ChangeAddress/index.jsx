@@ -3,7 +3,7 @@ import WithRouter from '../../router/withRouter'
 import { NavBar, Toast, Button, Form, Input, Cell, Switch, Area ,Field} from 'react-vant';
 import { Ellipsis, ArrowLeft, } from '@react-vant/icons'
 import { areaList } from '@vant/area-data'
-import {addAddres,getAddressList,deleteAddress} from '../../api/address'
+import {addAddres,getAddressList,deleteAddress,getAddressInfo} from '../../api/address'
 import './index.css'
 
 class ChangeAddress extends Component {
@@ -25,7 +25,7 @@ class ChangeAddress extends Component {
         //用户名
         realName: '',
         //地区对应字符串值
-        value:''
+        value:[]
     }
     render() {
         let { realName, phone, isDefault,  detail,  value } = this.state
@@ -59,27 +59,27 @@ class ChangeAddress extends Component {
                                 placeholder='收货人手机号'
                             />
                         </Cell>
-                        <Cell>
-                            <Area
-                                popup={{
-                                    round: true,
-                                }}
-                                title='省/市/区'
-                                value={value}
-                                areaList={areaList}
-                                onConfirm={(options)=>this.setState({value:options})}
-                            >
-                                {(_, selectRows, actions) => {
-                                    return (
-                                        <Field
-                                            label='选择地区'
-                                            value={selectRows.map(row => row?.text).join(',')}
-                                            onClick={() => actions.open()}
-                                        />
-                                    )
-                                }}
-                            </Area>
-                        </Cell>
+                        <Area
+                            popup={{
+                                round: true,
+                            }}
+                            defaultValue={value}
+                            title='省/市/区'
+                            value={value}
+                            areaList={areaList}
+                            onConfirm={(options)=>this.setState({value:options})}
+                            className="getdiqu"
+                        >
+                            {(_, selectRows, actions) => {
+                                return (
+                                    <Field
+                                        label='选择地区'
+                                        value={selectRows.map(row => row?.text).join(',')}
+                                        onClick={() => actions.open()}
+                                    />
+                                )
+                            }}
+                        </Area>
                         <Cell>
                             <Input
                                 prefix={'详细地址'}
@@ -180,14 +180,39 @@ class ChangeAddress extends Component {
         
     }
 
-    componentDidMount(){
-        let {item} = this.props.router.location.state
-        this.setState({
-            detail: item.detail,
-            isDefault: item.isDefault,
-            phone: item.phone,
-            realName: item.realName
-        })
+    async componentDidMount(){
+        let [search] = this.props.router.searchParams
+        let id = search.get('id')
+        let res = await getAddressInfo(id)
+        if(res.data.code===200){
+            let addressInfo = res.data.data
+            let {value} = this.state
+            for (let k in areaList.province_list){
+                if(areaList.province_list[k]===addressInfo.province){
+                    value.push(k)
+                }
+            }
+            for (let i in areaList.city_list){
+                if(areaList.city_list[i]===addressInfo.city){
+                    value.push(i)
+                }
+            }
+            for (let o in areaList.county_list){
+                if(areaList.county_list[o]===addressInfo.district){
+                    value.push(o)
+                }
+            }
+            this.setState({
+                detail: addressInfo.detail,
+                isDefault: addressInfo.isDefault,
+                phone: addressInfo.phone,
+                realName: addressInfo.realName,
+                value
+            })
+        }else{
+            Toast.fail(res.data.message)
+            this.props.router.navigate(-1)
+        }
     }
 
 }
