@@ -144,7 +144,7 @@ class Info extends Component {
                     <Tabs.TabPane title={`商品`} >
                         <div className='infoTop'>
                             <NavBar
-                                title={<Search placeholder="搜索商品" shape="round" align="center" color='#e93323' />}
+                                title={<Search placeholder="搜索商品" shape="round" align="center" color='#e93323' onFocus={()=>this.props.router.navigate('/search')} />}
                                 onClickLeft={() => this.props.router.navigate(-1)}
                             />
                             <div ref={this.swiperRef} >

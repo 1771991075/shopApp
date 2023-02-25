@@ -33,7 +33,7 @@ class Home extends Component {
 
         <div className='hometop'>
           <div className='search'>
-            <Search value={value} placeholder="搜索商品" shape='round' />
+            <Search value={value} placeholder="搜索商品" shape='round' onFocus={()=>this.props.router.navigate('/search')} />
           </div>
           <HomeSwiper/>
         </div>

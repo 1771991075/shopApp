@@ -1,0 +1,63 @@
+.search .hot_top {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.search .hot_top p {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 10px;
+}
+.search .hot_top .hotcate span {
+  padding: 5px 10px;
+  box-sizing: border-box;
+  border: 0.5px solid #aaa;
+  border-radius: 20px;
+  color: 454545;
+  margin-top: 5px;
+  margin-right: 5px;
+  font-size: 13px;
+}
+.search .hottuijian {
+  color: #454545;
+  margin: 20px;
+  text-align: center;
+}
+.search .hotlist {
+  padding: 10px;
+  box-sizing: border-box;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
+.search .hotlist .btmlist1 {
+  width: 170px;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+.search .hotlist .btmlist1 .itemimg img {
+  width: 170px;
+}
+.search .hotlist .btmlist1 .itemxinxi {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.search .hotlist .btmlist1 .itemxinxi .itemtitle {
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.search .hotlist .btmlist1 .itemxinxi .itemotprice {
+  color: #999;
+  font-size: 14px;
+  text-decoration: line-through;
+}
+.search .hotlist .btmlist1 .itemxinxi .itemprice {
+  color: #e93323;
+  font-size: 16px;
+  font-weight: 600;
+}
