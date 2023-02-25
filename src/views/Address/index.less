@@ -24,33 +24,42 @@
     .rv-radio-group{
         padding: 10px;
         box-sizing: border-box;
-        .rv-radio{
+        .item_address{
+            display: flex;
+            justify-content: space-between;
+            position: relative;
             background-color: #fff;
             border-radius: 10px;
             padding: 5px 10px;
             box-sizing: border-box;
-            position: relative;
-            .addressItem{
-                width: 88%;
-                padding: 10px;
-                box-sizing: border-box;
-                .address_top{
-                    color: #323233;
-                    font-size: 16px;
-                    margin-bottom: 5px;
-                    .morenaddress{
-                        background-color: #ee0a24;
-                        color: #fff;
-                        margin-left: 10px;
-                        border-radius: 10px;
-                        font-size: 12px;
-                        padding: 2px 4px;
-                        box-sizing: border-box;
-                    }
+            margin-bottom: 5px;
+            .rv-radio{
+                width: 90%;
+                .rv-radio__label{
+                    width: 85%;
                 }
-                .address_btm{
-                    color: #323233;
-                    font-size: 13px;
+                .addressItem{
+                    width: 100%;
+                    padding: 10px;
+                    box-sizing: border-box;
+                    .address_top{
+                        color: #323233;
+                        font-size: 16px;
+                        margin-bottom: 5px;
+                        .morenaddress{
+                            background-color: #ee0a24;
+                            color: #fff;
+                            margin-left: 10px;
+                            border-radius: 10px;
+                            font-size: 12px;    
+                            padding: 2px 4px;
+                            box-sizing: border-box;
+                        }
+                    }
+                    .address_btm{
+                        color: #323233;
+                        font-size: 13px;
+                    }
                 }
             }
             .xiugaiaddress{

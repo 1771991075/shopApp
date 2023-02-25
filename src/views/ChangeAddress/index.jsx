@@ -3,10 +3,10 @@ import WithRouter from '../../router/withRouter'
 import { NavBar, Toast, Button, Form, Input, Cell, Switch, Area ,Field} from 'react-vant';
 import { Ellipsis, ArrowLeft, } from '@react-vant/icons'
 import { areaList } from '@vant/area-data'
-import {addAddres} from '../../api/address'
+import {addAddres,getAddressList,deleteAddress} from '../../api/address'
 import './index.css'
 
-class Add extends Component {
+class ChangeAddress extends Component {
     state = {
         //地址列表
         addressList: [],
@@ -33,7 +33,7 @@ class Add extends Component {
             <div className='address'>
                 <div className='address_header'>
                     <NavBar
-                        title='添加收货地址'
+                        title='修改收货地址'
                         leftText={<ArrowLeft fontSize={20} />}
                         rightText={<Ellipsis fontSize={20} />}
                         onClickLeft={() => this.props.router.navigate(-1)}
@@ -93,13 +93,14 @@ class Add extends Component {
                         <Cell
                             defaultChecked={isDefault}
                             title='设为默认收货地址'
-                            rightIcon={<Switch size={25} onClick={() => this.changeDefault()} />}
+                            rightIcon={<Switch size={25} 
+                            checked={isDefault} onClick={() => this.changeDefault()} />}
                         />
                     </div>
                 </div>
                 <div className='addbtm'>
                     <Button type='primary' color='#ee0a24' block round onClick={() => this.saveAddress()}>保存</Button>
-                    <Button type='default' block round >删除</Button>
+                    <Button type='default' block round onClick={()=>this.deleteAddress()}>删除</Button>
                 </div>
             </div>
         )
@@ -112,6 +113,30 @@ class Add extends Component {
         this.setState({
             isDefault
         })
+    }
+
+    //删除地址
+    async deleteAddress(){
+        let {item} = this.props.router.location.state
+        let res = await getAddressList()
+        if(res.data.code===200){
+            let addressList = res.data.data.list
+            let idx = addressList.findIndex(item=>{
+                return item === item
+            })
+            if(idx!==-1){
+                let data1 = {id:item.id}
+                let delres = await deleteAddress(data1)
+                if(delres.data.code===200){
+                    Toast.success('删除成功')
+                    this.props.router.navigate(-1)
+                }else{
+                    Toast.fail(delres.data.message)
+                }
+            }
+        }else{
+            Toast.fail(res.data.message)
+        }
     }
 
     //保存地址
@@ -140,14 +165,14 @@ class Add extends Component {
                 cityId:2
             },
             detail:detail,
-            id:0,
+            id:1,
             isDefault,
             phone,
             realName
         }
         let res = await addAddres(data)
         if(res.data.code===200){
-            Toast.success('添加成功')
+            Toast.success('修改成功')
             this.props.router.navigate(-1)
         }else{
             Toast.fail(res.data.message)
@@ -156,10 +181,15 @@ class Add extends Component {
     }
 
     componentDidMount(){
-        let item = this.props.router.location.state
-        console.log(item);
+        let {item} = this.props.router.location.state
+        this.setState({
+            detail: item.detail,
+            isDefault: item.isDefault,
+            phone: item.phone,
+            realName: item.realName,
+        })
     }
 
 }
 
-export default WithRouter(Add)
+export default WithRouter(ChangeAddress)

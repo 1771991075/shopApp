@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import WithRouter from '../../router/withRouter'
 import { NavBar, Toast, Button, Radio } from 'react-vant';
-import { Ellipsis, ArrowLeft,Edit } from '@react-vant/icons'
-import {getAddressList,changeDefault} from '../../api/address'
+import { Ellipsis, ArrowLeft, Edit } from '@react-vant/icons'
+import { getAddressList, changeDefault } from '../../api/address'
 import './index.css'
 
 class Address extends Component {
@@ -31,23 +31,25 @@ class Address extends Component {
                                 {
                                     addressList.map((item, index) => {
                                         return (
-                                            <Radio name={item.isDefault?'1':''} key={index} onClick={()=>this.changeDefaultAddress1(item.id)}>
-                                                <div className='addressItem'>
-                                                    <div className='address_top'>
-                                                        <span>{item.realName}</span>
-                                                        <span>{item.phone}</span>
-                                                        {
-                                                            item.isDefault && <span className='morenaddress'>默认</span>
-                                                        }
+                                            <div className='item_address' key={index}>
+                                                <Radio name={item.isDefault ? '1' : item}  onClick={() => this.changeDefaultAddress1(item.id)}>
+                                                    <div className='addressItem'>
+                                                        <div className='address_top'>
+                                                            <span>{item.realName}</span>
+                                                            <span>{item.phone}</span>
+                                                            {
+                                                                item.isDefault && <span className='morenaddress'>默认</span>
+                                                            }
+                                                        </div>
+                                                        <div className='address_btm'>
+                                                            <p>{item.province}{item.city}{item.district}{item.detail}</p>
+                                                        </div>
                                                     </div>
-                                                    <div className='address_btm'>
-                                                        <p>{item.province}{item.city}{item.district}{item.detail}</p>
-                                                    </div>
-                                                    <div className='xiugaiaddress'>
-                                                        <Edit  fontSize={20} color={'#969799'}/>
-                                                    </div>
+                                                </Radio>
+                                                <div className='xiugaiaddress'>
+                                                    <Edit fontSize={25} color={'#969799'} onClick={() => this.changeAddress(item)} />
                                                 </div>
-                                            </Radio>
+                                            </div>
                                         )
                                     })
                                 }
@@ -62,20 +64,34 @@ class Address extends Component {
         )
     }
     //改变默认地址
-    async changeDefaultAddress1(id){
-        let res = await changeDefault({id:id})
-        if(res.data.code===200){
+    async changeDefaultAddress1(id) {
+        let res = await changeDefault({ id: id })
+        if (res.data.code === 200) {
             Toast.success('设置成功')
+        } else {
+            Toast.fail(res.data.message)
         }
     }
 
+    //修改地址
+    changeAddress(item) {
+        this.props.router.navigate('/change/address', { state: { item } })
+    }
+
     //获取地址列表
-    async componentDidMount(){
+    async componentDidMount() {
         let res = await getAddressList()
-        this.setState({
-            addressList:res.data.data.list
+        let addressList = res.data.data.list
+        let arr = addressList.filter(item => {
+            return item.isDefault
         })
-        console.log(res);
+        //如果没有默认地址，则设置地址列表中第一项为默认地址
+        if(arr.length===0){
+            this.changeDefaultAddress1({id:addressList[0].id})
+        }
+        this.setState({
+            addressList: addressList
+        })
     }
 }
 

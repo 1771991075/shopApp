@@ -26,24 +26,33 @@
   padding: 10px;
   box-sizing: border-box;
 }
-.address .rv-radio-group .rv-radio {
+.address .rv-radio-group .item_address {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
   background-color: #fff;
   border-radius: 10px;
   padding: 5px 10px;
   box-sizing: border-box;
-  position: relative;
+  margin-bottom: 5px;
 }
-.address .rv-radio-group .rv-radio .addressItem {
-  width: 88%;
+.address .rv-radio-group .item_address .rv-radio {
+  width: 90%;
+}
+.address .rv-radio-group .item_address .rv-radio .rv-radio__label {
+  width: 85%;
+}
+.address .rv-radio-group .item_address .rv-radio .addressItem {
+  width: 100%;
   padding: 10px;
   box-sizing: border-box;
 }
-.address .rv-radio-group .rv-radio .addressItem .address_top {
+.address .rv-radio-group .item_address .rv-radio .addressItem .address_top {
   color: #323233;
   font-size: 16px;
   margin-bottom: 5px;
 }
-.address .rv-radio-group .rv-radio .addressItem .address_top .morenaddress {
+.address .rv-radio-group .item_address .rv-radio .addressItem .address_top .morenaddress {
   background-color: #ee0a24;
   color: #fff;
   margin-left: 10px;
@@ -52,11 +61,11 @@
   padding: 2px 4px;
   box-sizing: border-box;
 }
-.address .rv-radio-group .rv-radio .addressItem .address_btm {
+.address .rv-radio-group .item_address .rv-radio .addressItem .address_btm {
   color: #323233;
   font-size: 13px;
 }
-.address .rv-radio-group .rv-radio .xiugaiaddress {
+.address .rv-radio-group .item_address .xiugaiaddress {
   position: absolute;
   right: 20px;
   top: 50%;

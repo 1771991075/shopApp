@@ -9,8 +9,12 @@ let changeDefault = (data) => sendHttp(`/api/front/address/default/set`,'post',d
 //删除收货地址
 let deleteAddress = (data) => sendHttp(`/api/front/address/del`,'post',data)
 
+//添加收货地址
+let addAddres = (data) => sendHttp(`/api/front/address/edit`,'post',data)
+
 export {
     getAddressList,
     changeDefault,
-    deleteAddress
+    deleteAddress,
+    addAddres
 }

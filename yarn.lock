@@ -2314,6 +2314,11 @@
   dependencies:
     "@use-gesture/core" "10.2.24"
 
+"@vant/area-data@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.npmmirror.com/@vant/area-data/-/area-data-1.4.0.tgz#6140c32a3b60e42512a3f428ca9e175b7307d048"
+  integrity sha512-XS+BZJPplK20qX+yoC3jvDTYq90Hzrz6pRZr2ASNH8pgddXNYqjLvhyl4cm6VHJ/OK/59NnoxkO1qU1PEiIvDw==
+
 "@vant/popperjs@^1.1.0":
   version "1.3.0"
   resolved "https://registry.npmmirror.com/@vant/popperjs/-/popperjs-1.3.0.tgz#e0eff017124b5b2352ef3b36a6df06277f4400f2"
