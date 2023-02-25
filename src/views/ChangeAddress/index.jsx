@@ -121,8 +121,8 @@ class ChangeAddress extends Component {
         let res = await getAddressList()
         if(res.data.code===200){
             let addressList = res.data.data.list
-            let idx = addressList.findIndex(item=>{
-                return item === item
+            let idx = addressList.findIndex(i=>{
+                return i === item
             })
             if(idx!==-1){
                 let data1 = {id:item.id}
@@ -186,7 +186,7 @@ class ChangeAddress extends Component {
             detail: item.detail,
             isDefault: item.isDefault,
             phone: item.phone,
-            realName: item.realName,
+            realName: item.realName
         })
     }
 
