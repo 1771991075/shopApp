@@ -62,13 +62,13 @@ class Mine extends Component {
           <div className='minefuwulist'>
             <div className='minefuwuitem'>
               <div className='imgg' onClick={()=>this.props.router.navigate('/address')}>
-                <LocationO fontSize={30} color={'#e93323'} />
+                <LocationO fontSize={25} color={'#e93323'} />
                 <p>收货地址</p>
               </div>
             </div>
             <div className='minefuwuitem'>
               <div className='imgg'>
-                <ServiceO fontSize={30} color={'#e93323'} />
+                <ServiceO fontSize={25} color={'#e93323'} />
                 <p>我的客服</p>
               </div>
             </div>
