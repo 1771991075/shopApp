@@ -3,7 +3,7 @@ import { Grid } from 'react-vant';
 import { TodoList, BalanceList, Clock, ThumbCircle, Question, Arrow ,LocationO , ServiceO} from '@react-vant/icons';
 import './index.css'
 import WithRouter from '../../router/withRouter';
-import { getUser,getServeList } from '../../api/mine'
+import { getUser} from '../../api/mine'
 
 class Mine extends Component {
 
@@ -81,7 +81,6 @@ class Mine extends Component {
   async componentDidMount() {
     //获取用户信息
     let resUser = await getUser()
-    let res = await getServeList()
     this.setState({
       user: resUser.data.data
     })
