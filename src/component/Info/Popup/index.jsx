@@ -4,7 +4,7 @@ import { CartO, StarO ,Star } from '@react-vant/icons';
 import './index.css';
 import bus from '../../../utils/bus';
 import WithRouter from '../../../router/withRouter';
-import {addCartList,getCartList} from '../../../api/cart';
+import {addCartList} from '../../../api/cart';
 import {getOrder} from '../../../api/order';
 
 class InfoPopup extends Component {
