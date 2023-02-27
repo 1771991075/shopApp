@@ -1,10 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component, createRef } from 'react'
 import WithRouter from '../../router/withRouter'
-import { NavBar, Cell, Button, Field, Uploader } from 'react-vant';
-import { getUser, changeUser} from '../../api/mine'
+import { NavBar, Cell, Button, Field, Toast } from 'react-vant';
+import { getUser, sendImg ,saveUser} from '../../api/mine'
 import './index.css'
 
 class User extends Component {
+
+    upFile = createRef()
+
     state = {
         userInfo: null,
         nickname: ''
@@ -23,12 +26,9 @@ class User extends Component {
                     userInfo && <Cell.Group>
                         <div className='img'>
                             <div className='touxiang'>头像</div>
-                            <Uploader
-                                accept='image'
-                                // defaultValue
-                                onChange={v => this.getImg(v)}
-                            />
-                            {/* <Image round width='15%' height='13vw' src={userInfo.avatar} /> */}
+                            <div>
+                                <img src={userInfo.avatar} alt="" onClick={()=>this.upLoad()}/>
+                            </div>
                         </div>
                         <Field label="昵称" placeholder={nickname} onChange={(value) => this.setState({ nickname: value })} align="right" />
                         <Cell title='手机号' value={userInfo.phone} />
@@ -36,43 +36,66 @@ class User extends Component {
                     </Cell.Group>
                 }
                 <div className='user_mid'>
-                    <Button type='primary' block round color='#e93323'>
+                    <Button type='primary' block round color='#e93323' onClick={()=>this.save()}>
                         保存修改
                     </Button>
                     <Button type='primary' block round className='getOut'>
                         退出登录
                     </Button>
                 </div>
+                <input type="file" name="" id="" className='upload' ref={this.upFile} onChange={(e)=>this.getImg(e)}/>
             </div>
         )
     }
 
     async componentDidMount() {
         let res = await getUser()
-        console.log(res);
         this.setState({
             userInfo: res.data.data,
             nickname: res.data.data.nickname
         })
     }
 
-    //修改用户信息
-    async changeUserInfo() {
-        let { userInfo, nickname } = this.state
-
-        let data = {
-            avatar: '',
-            nickname: nickname,
-            phone: userInfo.phone
-        }
-        let res = await changeUser(data)
-        console.log(res);
-    }
     //保存头像
-    async getImg(v){
-        // console.log(v[0].url);
-        // let res = sendImg(v[0])
-        // console.log(res);
+    upLoad(){
+        this.upFile.current.click()
+    }
+    
+    async getImg(e){
+        //获取文件对象
+        let file = e.target.files[0]
+        //创建formdata实例
+        let data = new FormData()
+        //向formdata对象中追加属性 属性名为 上传文件的属性名 属性值为要上传的文件对象
+        data.append('multipart',file)
+        let res = await sendImg(data)
+        if(res.data.code === 200){
+            Toast.success('上传成功')
+            let {userInfo} = this.state
+            userInfo.avatar = res.data.data.url
+            this.setState({
+                userInfo
+            })
+        }else{
+            Toast.fail(res.data.message)
+        }
+    }
+
+    async save(){
+        let {userInfo,nickname} = this.state
+        let avatar = userInfo.avatar
+        let phone = userInfo.phone
+        let data = {
+            avatar,
+            nickname,
+            phone
+        }
+        let res = await saveUser(data)
+        if(res.data.code === 200){
+            Toast.success('保存成功')
+        }else{
+            Toast.fail(res.data.message)
+        }
     }
 }
 
