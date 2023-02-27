@@ -114,7 +114,6 @@ class InfoPopup extends Component {
             productId:msgInfo.productId
         }
         let res = await addCartList(data)
-        console.log(res);
         if(res.data.code===200){
             Toast.success('加入成功')
             this.setState({
