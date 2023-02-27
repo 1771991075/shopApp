@@ -30,7 +30,7 @@ class User extends Component {
                                 <img src={userInfo.avatar} alt="" onClick={()=>this.upLoad()}/>
                             </div>
                         </div>
-                        <Field label="昵称" placeholder={nickname} onChange={(value) => this.setState({ nickname: value })} align="right" />
+                        <Field label="昵称" placeholder={nickname} onFocus={()=>this.setState({nickname})} value={nickname} onChange={(value) => this.setState({ nickname: value })} align="right" />
                         <Cell title='手机号' value={userInfo.phone} />
                         <Cell title='ID号' value={2983} />
                     </Cell.Group>
@@ -39,7 +39,7 @@ class User extends Component {
                     <Button type='primary' block round color='#e93323' onClick={()=>this.save()}>
                         保存修改
                     </Button>
-                    <Button type='primary' block round className='getOut'>
+                    <Button type='primary' block round className='getOut' onClick={()=>this.exit()}>
                         退出登录
                     </Button>
                 </div>
@@ -96,6 +96,12 @@ class User extends Component {
         }else{
             Toast.fail(res.data.message)
         }
+    }
+
+    //退出登录
+    exit(){
+        localStorage.removeItem('USER_LOGIN')
+        this.props.router.navigate('/login')
     }
 }
 
