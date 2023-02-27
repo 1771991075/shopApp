@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { Grid } from 'react-vant';
-import { TodoList, BalanceList, Clock, ThumbCircle, Question, Arrow } from '@react-vant/icons';
+import { TodoList, BalanceList, Clock, ThumbCircle, Question, Arrow ,LocationO , ServiceO} from '@react-vant/icons';
 import './index.css'
 import WithRouter from '../../router/withRouter';
-import { getUser } from '../../api/mine'
+import { getUser,getServeList } from '../../api/mine'
 
 class Mine extends Component {
 
   state = {
     //用户信息
     user: null
+
   }
 
   render() {
@@ -54,6 +55,25 @@ class Mine extends Component {
             </Grid>
           </div>
         </div>
+        <div className='minefuwu'>
+          <div className='minefuwu_top'>
+            <p>我的服务</p>
+          </div>
+          <div className='minefuwulist'>
+            <div className='minefuwuitem'>
+              <div className='imgg' onClick={()=>this.props.router.navigate('/address')}>
+                <LocationO fontSize={30} color={'#e93323'} />
+                <p>收货地址</p>
+              </div>
+            </div>
+            <div className='minefuwuitem'>
+              <div className='imgg'>
+                <ServiceO fontSize={30} color={'#e93323'} />
+                <p>我的客服</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -61,6 +81,7 @@ class Mine extends Component {
   async componentDidMount() {
     //获取用户信息
     let resUser = await getUser()
+    let res = await getServeList()
     this.setState({
       user: resUser.data.data
     })
