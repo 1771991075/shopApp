@@ -1,4 +1,4 @@
-.cart {
+.collect {
   position: relative;
   width: 100%;
   padding: 20px 10px;
@@ -6,11 +6,11 @@
   box-sizing: border-box;
   background-color: #f1f1f1;
 }
-.cart .cartmid {
+.collect .cartmid {
   border-radius: 10px;
   background-color: #fff;
 }
-.cart .cartmid .guanli-top {
+.collect .cartmid .guanli-top {
   height: 40px;
   line-height: 40px;
   font-size: 14px;
@@ -20,34 +20,34 @@
   box-sizing: border-box;
   border-bottom: 1px solid #f1f1f1;
 }
-.cart .cartmid .cartItem {
+.collect .cartmid .cartItem {
   position: relative;
   margin-bottom: 5px;
 }
-.cart .cartmid .cartItem .rv-checkbox {
+.collect .cartmid .cartItem .rv-checkbox {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   left: 10px;
 }
-.cart .cartmid .cartItem .rv-product-card {
+.collect .cartmid .cartItem .rv-product-card {
   padding-left: 20px;
   box-sizing: border-box;
   background-color: #fff;
 }
-.cart .cartmid .cartItem .rv-stepper {
+.collect .cartmid .cartItem .rv-stepper {
   color: #ff6034;
 }
-.cart .cartmid .cartItem .rv-stepper .rv-stepper__minus {
+.collect .cartmid .cartItem .rv-stepper .rv-stepper__minus {
   color: red;
   border: 1px solid red;
 }
-.cart .cartmid .cartItem .rv-stepper .rv-stepper__plus {
+.collect .cartmid .cartItem .rv-stepper .rv-stepper__plus {
   color: #ffffff;
   background-color: red;
   border: 1px solid red;
 }
-.cart .collect-btm {
+.collect .collect-btm {
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
@@ -56,8 +56,10 @@
   left: 0px;
   display: flex;
   justify-content: space-between;
+  background-color: #fff;
+  z-index: 2;
 }
-.cart .collect-btm .removecollectbtn button {
+.collect .collect-btm .removecollectbtn button {
   padding: 5px 10px;
   box-sizing: border-box;
   background-color: #fff;

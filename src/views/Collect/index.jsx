@@ -18,7 +18,7 @@ class Collect extends Component {
   render() {
     let { collectList, isShow, checkList } = this.state
     return (
-      <div className='cart'>
+      <div className='collect'>
         <div className='cartmid'>
           {
             collectList.length === 0 ? <Empty
@@ -40,7 +40,7 @@ class Collect extends Component {
                           desc={item.suk}
                           title={item.storeName}
                           thumb={item.image}
-                          style={{ paddingLeft: isShow ? '40px' : '0px' }}
+                          style={{ paddingLeft: isShow ? '40px' : '10px' }}
                         />
                         <Checkbox style={{ display: isShow ? 'block' : 'none' }} name={item}></Checkbox>
                       </div>
