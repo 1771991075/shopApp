@@ -25,7 +25,10 @@ class ChangeAddress extends Component {
         //用户名
         realName: '',
         //地区对应字符串值
-        value: []
+        value: [],
+        //地址id
+        id:''
+        
     }
     render() {
         let { realName, phone, isDefault, detail, value } = this.state
@@ -149,7 +152,7 @@ class ChangeAddress extends Component {
 
     //保存地址
     async saveAddress() {
-        let { realName, phone, isDefault, city, detail, district, province, value } = this.state
+        let { realName, phone, isDefault, city, detail, district, province, value ,id} = this.state
         for (let k in areaList.province_list) {
             if (k === value[0]) {
                 province = areaList.province_list[k]
@@ -173,7 +176,7 @@ class ChangeAddress extends Component {
                 cityId: 2
             },
             detail: detail,
-            id: 1,
+            id:id,
             isDefault,
             phone,
             realName
@@ -215,7 +218,8 @@ class ChangeAddress extends Component {
                 isDefault: addressInfo.isDefault,
                 phone: addressInfo.phone,
                 realName: addressInfo.realName,
-                value
+                value,
+                id
             })
         } else {
             Toast.fail(res.data.message)
