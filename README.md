@@ -6,12 +6,12 @@
 
 ## 2.Install all dependencies
 
-    npm install
+    npm install   or
     yarn add
 
 ## 3.Launch project
 
-    npm start
+    npm start    or
     yarn start
 
 ## 4.Package item
