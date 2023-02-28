@@ -108,11 +108,13 @@ class MyOrder extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='dixian'>我也是有底线的</div>
                                 </div>
 
                             )
                         })
+                    }
+                    {
+                        willList.length !== 0 && <div className='dixian'>我也是有底线的</div>
                     }
                     {
                         willList.length === 0 && <div><Empty description="暂无订单信息~"></Empty></div>
@@ -165,10 +167,24 @@ class MyOrder extends Component {
     }
 
     //取消订单
-    remove(id){
-        let res = removeOrder(id)
-        if(res.data.code ===200){
+    async remove(id){
+        let res = await removeOrder({id:id})
+        if(res.data.code === 200){
             Toast.success('取消成功')
+            let {willList,activeIndex,list} = this.state
+            let idx = willList.findIndex(item=>{
+                return item.id === id
+            })
+            list[activeIndex].count = list[activeIndex].count-1
+            if(idx!==-1){
+                willList.splice(idx,1)
+                this.setState({
+                    willList,
+                    list
+                })
+            }else{
+                Toast.info('暂无此订单')
+            }
         }else{
             Toast.fail(res.data.message)
         }
