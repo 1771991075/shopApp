@@ -41,16 +41,16 @@ let elements = [
                 author:true,
             },
             {
-                path:'collect',
-                element:<Suspense fallback={<MyLoading/>}><Collect/></Suspense>,
-                author:true
-            },
-            {
                 path:'prefer',
                 element:<Suspense fallback={<MyLoading/>}><Prefer/></Suspense>,
                 author:true
             }
         ]
+    },
+    {
+        path:'/collect',
+        element:<Suspense fallback={<MyLoading/>}><Collect/></Suspense>,
+        author:true
     },
     {
         path:'/add/address',

@@ -1,19 +1,23 @@
 .cart{
     position: relative;
     width: 100%;
-    padding-top: 50px;
-    padding-bottom: 100px;
+    padding: 20px 10px;
+    min-height: 100vh;
     box-sizing: border-box;
-    .cartnav{
-        width: 100%;
-        .rv-nav-bar__content{
-            background-color: #ff6034;
-            .rv-nav-bar__title{
-                color: #fff;
-            }
-        }
-    }
+    background-color: #f1f1f1;
     .cartmid{
+        border-radius: 10px;
+        background-color: #fff;
+        .guanli-top{
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0px 10px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #f1f1f1;
+        }
         .cartItem{
             position: relative;
             margin-bottom: 5px;
@@ -24,8 +28,9 @@
                 left: 10px;
             }
             .rv-product-card{
-                padding-left: 40px;
+                padding-left: 20px;
                 box-sizing: border-box;
+                background-color: #fff;
             }
             .rv-stepper{
                 color: #ff6034;
@@ -41,7 +46,25 @@
             }
         }
     }
-    .rv-submit-bar{
-        padding-bottom: 50px;
+    .collect-btm{
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        display: flex;
+        justify-content: space-between;
+        .removecollectbtn{
+            button{
+                padding: 5px 10px;
+                box-sizing: border-box;
+                background-color: #fff;
+                color: #999;
+                border: 1px solid #999;
+                border-radius: 20px;
+                font-size: 13px;
+            }
+        }
     }
 }

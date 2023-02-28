@@ -35,7 +35,7 @@ class Mine extends Component {
                 <li><p className='p1'>{user.nowMoney}</p><p className='p2'>余额</p></li>
                 <li><p className='p1'>{user.integral}</p><p className='p2'>积分</p></li>
                 <li onClick={() => this.props.router.navigate('/index/prefer')}><p className='p1'>{user.couponCount}</p><p className='p2'>优惠券</p></li>
-                <li onClick={() => this.props.router.navigate('/index/collect')}><p className='p1'>{user.collectCount}</p><p className='p2'>收藏</p></li>
+                <li onClick={() => this.props.router.navigate('/collect')}><p className='p1'>{user.collectCount}</p><p className='p2'>收藏</p></li>
               </ul>
             </div>
           </div>
@@ -78,7 +78,7 @@ class Mine extends Component {
                 <p>优惠券</p>
               </div>
             </div>
-            <div className='minefuwuitem' onClick={()=>this.props.router.navigate('/index/collect')}>
+            <div className='minefuwuitem' onClick={()=>this.props.router.navigate('/collect')}>
               <div className='imgg'>
                 <LikeO fontSize={27} color={'#e93323'} />
                 <p>我的收藏</p>

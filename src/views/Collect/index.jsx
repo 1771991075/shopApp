@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { Toast, NavBar, SubmitBar, ProductCard, Empty, Checkbox, Button, Stepper, SwipeCell } from 'react-vant'
-import { ArrowLeft, Ellipsis, ShoppingCartO } from '@react-vant/icons'
+import { Toast, ProductCard, Empty, Checkbox, Button } from 'react-vant'
+import { ShoppingCartO } from '@react-vant/icons'
 import WithRouter from '../../router/withRouter'
-import {getCollectList} from '../../api/collect'
-import {removeUserCollect} from '../../api/info'
+import { getCollectList,removeUserCollect1 } from '../../api/collect'
 import './index.css'
 
 class Collect extends Component {
@@ -11,23 +10,15 @@ class Collect extends Component {
   state = {
     //收藏列表
     collectList: [],
-    num:1
+    isShow: false,
+    //选中的收藏列表
+    checkList: []
   }
 
   render() {
-    const { collectList ,num} = this.state
+    let { collectList, isShow, checkList } = this.state
     return (
       <div className='cart'>
-        <div className='cartnav'>
-          <NavBar
-            fixed
-            leftArrow={<ArrowLeft style={{ fontSize: '20px', color: '#fff' }} />}
-            title='收藏'
-            onClickLeft={() => this.props.router.navigate(-1)}
-            rightText={<Ellipsis style={{ fontSize: '20px', color: '#fff' }} />}
-            onClickRight={() => Toast('更多')}
-          />
-        </div>
         <div className='cartmid'>
           {
             collectList.length === 0 ? <Empty
@@ -37,34 +28,21 @@ class Collect extends Component {
               <Button style={{ width: 160, background: '#ff6034', border: 'none' }} round type="primary" onClick={() => this.props.router.navigate('/index/home')}>
                 去逛逛
               </Button> </Empty> : <div>
-              <Checkbox.Group>
+              <div className='guanli-top'><span>当前共{collectList.length}件商品</span><span onClick={() => this.setState({ isShow: !isShow })}>{isShow?'取消':'管理'}</span></div>
+              <Checkbox.Group onChange={v => this.setState({ checkList: v })} value={checkList}>
                 {
-                  collectList.length!==0 && collectList.map((item, index) => {
+                  collectList.length !== 0 && collectList.map((item, index) => {
                     return (
-                      <div className='cartItem' key={index}>
-                        <SwipeCell
-                          rightAction={
-                            <Button style={{ height: '100%' }} square type="danger" onClick={()=>this.delCollect(index)}>
-                              取消收藏
-                            </Button>
-                          }
-                        >
-                          <ProductCard
-                            num={item.cartNum}
-                            price={item.price}
-                            desc={item.suk}
-                            title={item.storeName}
-                            thumb={item.image}
-                            footer={<Stepper
-                              value={num}
-                              onChange={value => this.setState({ num: value })}
-                              theme='round'
-                              buttonSize='18'
-                              disableInput
-                            />}
-                          />
-                          <Checkbox name={index} onClick={(e)=>{console.log(e)}}></Checkbox>  
-                        </SwipeCell>
+                      <div className='cartItem' key={item.id}>
+                        <ProductCard
+                          num={item.cartNum}
+                          price={item.price}
+                          desc={item.suk}
+                          title={item.storeName}
+                          thumb={item.image}
+                          style={{ paddingLeft: isShow ? '40px' : '0px' }}
+                        />
+                        <Checkbox style={{ display: isShow ? 'block' : 'none' }} name={item}></Checkbox>
                       </div>
                     )
                   })
@@ -74,13 +52,24 @@ class Collect extends Component {
 
           }
         </div>
-        <SubmitBar
-          disabled={(collectList.length === 0 ? true : false)}
-          price="0000"
-          buttonText="提交订单"
-        >
-          <Checkbox disabled={(collectList.length === 0 ? true : false)}>全选</Checkbox>
-        </SubmitBar>
+        <div style={{ display: isShow ? 'block' : 'none' }}>
+          <div className='collect-btm'>
+            <div>
+              <Checkbox disabled={(collectList.length === 0 ? true : false)} onChange={(checked) => {
+                if(checked){
+                  this.setState({
+                    checkList: collectList
+                  })
+                }else{
+                  this.setState({
+                    checkList:[]
+                  })
+                }
+              }} checked={(checkList.length === collectList.length && collectList.length !== 0)}>全选</Checkbox>
+            </div>
+            <div className='removecollectbtn'><button onClick={() => this.delCollect()}>取消收藏</button></div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -92,29 +81,37 @@ class Collect extends Component {
       forbidClick: true,
     })
     let res = await getCollectList()
-    if(res.data.code===200){
+    if (res.data.code === 200) {
       this.setState({
         collectList: res.data.data.list
-      },()=>{
+      }, () => {
+        console.log(this.state.collectList);
         Toast.clear()
       })
     }
   }
 
   //取消收藏
-  async delCollect(index){
-    let {collectList} = this.state
-    let nowCollectId = collectList[index].productId
-    let res = await removeUserCollect(nowCollectId)
-    if(res.data.code===200){
-      Toast.success('取消收藏')
+  async delCollect() {
+    let { checkList } = this.state
+    let arr = []
+    checkList.forEach(item => {
+      arr.push(item.id)
+    })
+    arr = arr.join(',')
+    let data = {
+      ids:arr
+    }
+    let res = await removeUserCollect1(data)
+    if (res.data.code === 200) {
+      Toast.success('取消成功')
       let ress = await getCollectList()
-      if(ress.data.code===200){
+      if (ress.data.code === 200) {
         this.setState({
           collectList: ress.data.data.list
         })
       }
-    }else{
+    } else {
       Toast.fail(res.data.message)
     }
   }
