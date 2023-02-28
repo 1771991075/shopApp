@@ -43,15 +43,15 @@ class Mine extends Component {
         <div className='mineordercenter'>
           <div className='mineordercenter_top'>
             <span className='mineorderspan'>订单中心</span>
-            <span className='mineseemore'><span onClick={()=>this.props.router.navigate('/myorder')}>查看全部</span><Arrow /></span>
+            <span className='mineseemore'><span onClick={()=>this.props.router.navigate('/myorder?index=0')}>查看全部</span><Arrow /></span>
           </div>
           <div>
             <Grid columnNum={5} border={false} square={true}>
-              <Grid.Item icon={<TodoList color='#1989fa' />} text='待付款' />
-              <Grid.Item icon={<BalanceList />} text='待发货' />
-              <Grid.Item icon={<Clock />} text='待收货' />
-              <Grid.Item icon={<ThumbCircle />} text='待评价' />
-              <Grid.Item icon={<Question />} text='退货/售后' />
+              <Grid.Item icon={<TodoList color='#1989fa' />} text='待付款'  onClick={()=>{this.props.router.navigate('/myorder?index=0')}}/>
+              <Grid.Item icon={<BalanceList />} text='待发货'  onClick={()=>{this.props.router.navigate('/myorder?index=1')}}/>
+              <Grid.Item icon={<Clock />} text='待收货'  onClick={()=>{this.props.router.navigate('/myorder?index=2')}}/>
+              <Grid.Item icon={<ThumbCircle />} text='待评价'  onClick={()=>{this.props.router.navigate('/myorder?index=3')}}/>
+              <Grid.Item icon={<Question />} text='退货/售后'  onClick={()=>{this.props.router.navigate('/myorder?index=4')}}/>
             </Grid>
           </div>
         </div>

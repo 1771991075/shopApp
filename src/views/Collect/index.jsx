@@ -41,6 +41,7 @@ class Collect extends Component {
                           title={item.storeName}
                           thumb={item.image}
                           style={{ paddingLeft: isShow ? '40px' : '10px' }}
+                          onClick={() => this.props.router.navigate(`/info?id=${item.productId}`) }
                         />
                         <Checkbox style={{ display: isShow ? 'block' : 'none' }} name={item}></Checkbox>
                       </div>
@@ -85,7 +86,6 @@ class Collect extends Component {
       this.setState({
         collectList: res.data.data.list
       }, () => {
-        console.log(this.state.collectList);
         Toast.clear()
       })
     }

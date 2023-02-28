@@ -142,6 +142,8 @@ class MyOrder extends Component {
     }
 
     async componentDidMount() {
+        let [search] = this.props.router.searchParams
+        let index = search.get('index')
         let { list } = this.state
         let res = await getCount()
         let SumCount = res.data.data
@@ -154,6 +156,7 @@ class MyOrder extends Component {
         this.setState({
             Count: SumCount,
             list,
+            activeIndex:+index
         })
     }
     //立即支付
