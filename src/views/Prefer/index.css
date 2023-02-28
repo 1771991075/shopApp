@@ -2,31 +2,83 @@
   width: 100%;
   min-height: 100vh;
   background: #f1f1f1;
-  padding-top: 50px;
-  box-sizing: border-box;
 }
 .prefer .prefer_header {
   width: 100%;
-}
-.prefer .prefer_header .rv-nav-bar {
-  width: 100%;
-}
-.prefer .prefer_header .rv-nav-bar .rv-nav-bar__content {
-  width: 100%;
-  background-color: #ff6034;
-  box-sizing: border-box;
-}
-.prefer .prefer_header .rv-nav-bar .rv-nav-bar__content .rv-nav-bar__title {
-  color: #fff;
-}
-.prefer .prefer_header .rv-nav-bar .rv-nav-bar__content .rv-icon {
-  color: #fff;
 }
 .prefer .youhuiquan {
   padding: 0px 5px;
   box-sizing: border-box;
 }
-.prefer .youhuiquan .rv-cell {
-  padding: 10px;
-  border-radius: 10px;
+.prefer .youhuiquan .yhqitem {
+  background-color: #fff;
+  margin: 10px 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.prefer .youhuiquan .yhqitem .yhqitem1 {
+  width: 35%;
+  height: 80px;
+  text-align: center;
+  background-color: #e93323;
+  padding: 12px;
+  box-sizing: border-box;
+  color: #fff;
+}
+.prefer .youhuiquan .yhqitem .yhqitem1 .yhqleft .hb {
+  font-size: 16px;
+  font-weight: bold;
+}
+.prefer .youhuiquan .yhqitem .yhqitem1 .yhqleft .money {
+  font-size: 30px;
+  font-weight: bold;
+}
+.prefer .youhuiquan .yhqitem .yhqitem1 .manjian {
+  font-size: 12px;
+  font-weight: bold;
+}
+.prefer .youhuiquan .yhqitem .yhqitem2 {
+  width: 65%;
+  box-sizing: border-box;
+  display: flex;
+  padding: 0px 10px;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+.prefer .youhuiquan .yhqitem .yhqitem2 .yhqright {
+  font-size: 14px;
+  min-width: 40%;
+  color: #454545;
+  padding-top: 10px;
+}
+.prefer .youhuiquan .yhqitem .yhqitem2 .yhqright .tongyong {
+  color: #e93323;
+  background-color: #fff;
+  border: 1px solid #e93323;
+  font-size: 12px;
+  padding: 3px 5px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+.prefer .youhuiquan .yhqitem .yhqitem2 .yhqright2 {
+  font-size: 12px;
+  color: #999;
+}
+.prefer .youhuiquan .yhqitem .yhqitem2 .yhqright2 .keyong {
+  width: 70px;
+  font-size: 12px;
+  background-color: #e93323;
+  padding: 2px 10px;
+  text-align: center;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: 1px solid #e93323;
+  color: #fff;
+}
+.prefer .youhuiquan .dixian {
+  text-align: center;
+  color: #454545;
+  margin: 10px auto;
+  font-size: 16px;
 }
