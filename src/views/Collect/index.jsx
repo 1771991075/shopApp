@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Toast, ProductCard, Empty, Checkbox, Button } from 'react-vant'
 import { ShoppingCartO } from '@react-vant/icons'
 import WithRouter from '../../router/withRouter'
-import { getCollectList,removeUserCollect1 } from '../../api/collect'
+import { getCollectList, removeUserCollect1 } from '../../api/collect'
 import './index.css'
 
 class Collect extends Component {
@@ -27,8 +27,8 @@ class Collect extends Component {
               description="收藏是空的~~~" >
               <Button style={{ width: 160, background: '#ff6034', border: 'none' }} round type="primary" onClick={() => this.props.router.navigate('/index/home')}>
                 去逛逛
-              </Button> </Empty> : <div>
-              <div className='guanli-top'><span>当前共{collectList.length}件商品</span><span onClick={() => this.setState({ isShow: !isShow })}>{isShow?'取消':'管理'}</span></div>
+              </Button> </Empty> : <div className='guanli'>
+              <div className='guanli-top'><span>当前共{collectList.length}件商品</span><span onClick={() => this.setState({ isShow: !isShow })}>{isShow ? '取消' : '管理'}</span></div>
               <Checkbox.Group onChange={v => this.setState({ checkList: v })} value={checkList}>
                 {
                   collectList.length !== 0 && collectList.map((item, index) => {
@@ -41,7 +41,7 @@ class Collect extends Component {
                           title={item.storeName}
                           thumb={item.image}
                           style={{ paddingLeft: isShow ? '40px' : '10px' }}
-                          onClick={() => this.props.router.navigate(`/info?id=${item.productId}`) }
+                          onClick={() => this.props.router.navigate(`/info?id=${item.productId}`)}
                         />
                         <Checkbox style={{ display: isShow ? 'block' : 'none' }} name={item}></Checkbox>
                       </div>
@@ -49,21 +49,21 @@ class Collect extends Component {
                   })
                 }
               </Checkbox.Group>
+              <div className='dixian'>我也是有底线的~</div>
             </div>
-
           }
         </div>
         <div style={{ display: isShow ? 'block' : 'none' }}>
           <div className='collect-btm'>
             <div>
               <Checkbox disabled={(collectList.length === 0 ? true : false)} onChange={(checked) => {
-                if(checked){
+                if (checked) {
                   this.setState({
                     checkList: collectList
                   })
-                }else{
+                } else {
                   this.setState({
-                    checkList:[]
+                    checkList: []
                   })
                 }
               }} checked={(checkList.length === collectList.length && collectList.length !== 0)}>全选</Checkbox>
@@ -100,7 +100,7 @@ class Collect extends Component {
     })
     arr = arr.join(',')
     let data = {
-      ids:arr
+      ids: arr
     }
     let res = await removeUserCollect1(data)
     if (res.data.code === 200) {

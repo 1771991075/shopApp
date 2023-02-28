@@ -8,41 +8,55 @@
     .cartmid{
         border-radius: 10px;
         background-color: #fff;
-        .guanli-top{
-            height: 40px;
-            line-height: 40px;
-            font-size: 14px;
-            display: flex;
-            justify-content: space-between;
-            padding: 0px 10px;
-            box-sizing: border-box;
-            border-bottom: 1px solid #f1f1f1;
-        }
-        .cartItem{
+        .guanli{
             position: relative;
-            margin-bottom: 5px;
-            .rv-checkbox{
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                left: 10px;
-            }
-            .rv-product-card{
-                padding-left: 20px;
+            .guanli-top{
+                height: 40px;
+                line-height: 40px;
+                font-size: 14px;
+                display: flex;
+                justify-content: space-between;
+                padding: 0px 10px;
                 box-sizing: border-box;
-                background-color: #fff;
+                border-bottom: 1px solid #f1f1f1;
             }
-            .rv-stepper{
-                color: #ff6034;
-                .rv-stepper__minus{
-                    color: red;
-                    border: 1px solid red;
+            .cartItem{
+                position: relative;
+                margin-bottom: 5px;
+                .rv-checkbox{
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    left: 10px;
                 }
-                .rv-stepper__plus{
-                    color: #ffffff;
-                    background-color: red;
-                    border: 1px solid red;
+                .rv-product-card{
+                    padding-left: 20px;
+                    box-sizing: border-box;
+                    background-color: #fff;
                 }
+                .rv-stepper{
+                    color: #ff6034;
+                    .rv-stepper__minus{
+                        color: red;
+                        border: 1px solid red;
+                    }
+                    .rv-stepper__plus{
+                        color: #ffffff;
+                        background-color: red;
+                        border: 1px solid red;
+                    }
+                }
+            }
+            .dixian{
+                width: 100%;
+                padding: 20px;
+                box-sizing: border-box;
+                text-align: center;
+                font-size: 14px;
+                color: #454545;
+                position: absolute;
+                bottom: -50px;
+                left: 0px;
             }
         }
     }
