@@ -44,7 +44,7 @@ class Cart extends Component {
                 {
                   cartList.length !== 0 && cartList.map((item, index) => {
                     return (
-                      <div className='cartItem' key={index}>
+                      <div className='cartItem' key={item.id}>
                         <SwipeCell
                           rightAction={
                             <Button style={{ height: '100%' }} square type="danger" onClick={() => this.delShop(item.id)}>
@@ -177,7 +177,14 @@ class Cart extends Component {
       })
       if (index !== -1) {
         this.state.cartList.splice(index, 1)
-        this.setState({ cartList: this.state.cartList }, () => {
+        let idx = this.state.checkedList.findIndex(item=>{
+          return item.id === id
+        })
+        this.state.checkedList.splice(idx,1)
+        this.setState({ 
+          cartList: this.state.cartList,
+          checkedList:this.state.checkedList
+        }, () => {
           this.changeSum()
         })
       }
