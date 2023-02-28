@@ -76,6 +76,10 @@ class Prefer extends Component {
 
     //获取可用优惠券
     async getUse() {
+        Toast.loading({
+            message: '加载中...',
+            forbidClick: true,
+        })
         let res = await getPrefer()
         this.setState({
             preferList: res.data.data.list
@@ -85,6 +89,10 @@ class Prefer extends Component {
     }
     //获取不可用优惠券
     async getUnUse() {
+        Toast.loading({
+            message: '加载中...',
+            forbidClick: true,
+        })
         let res = await getUnPrefer()
         this.setState({
             preferList: res.data.data.list
@@ -94,10 +102,6 @@ class Prefer extends Component {
     }
 
     componentDidMount() {
-        Toast.loading({
-            message: '加载中...',
-            forbidClick: true,
-        })
         this.getUse()
     }
 }
