@@ -17,6 +17,7 @@ let Prefer = lazy(()=>import('../views/Prefer'))
 let User = lazy(()=>import('../views/User'))
 let ChangeAddress = lazy(()=>import('../views/ChangeAddress'))
 let Search = lazy(()=>import('../views/Search'))
+let MyOrder = lazy(()=>import('../views/MyOrder'))
 
 let elements = [
     {
@@ -89,6 +90,11 @@ let elements = [
     {
         path:'/search',
         element:<Suspense fallback={<MyLoading/>}><Search/></Suspense>,
+        author:false
+    },
+    {
+        path:'/myorder',
+        element:<Suspense fallback={<MyLoading/>}><MyOrder/></Suspense>,
         author:false
     },
     {

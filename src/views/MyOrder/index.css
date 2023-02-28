@@ -1,0 +1,140 @@
+.myorder {
+  min-height: 100vh;
+  width: 100%;
+  padding: 40px 0px;
+  box-sizing: border-box;
+  background-color: #f1f1f1;
+}
+.myorder .myorder_header {
+  width: 100%;
+  background-color: #e93323 !important;
+  color: #fff;
+  min-height: 130px;
+  padding: 30px 20px;
+  box-sizing: border-box;
+}
+.myorder .myorder_header .rv-nav-bar__content {
+  background-color: #e93323;
+}
+.myorder .myorder_header .rv-nav-bar__content .rv-nav-bar__title {
+  color: #fff;
+}
+.myorder .myorder_header .rv-nav-bar__content .rv-icon {
+  color: #fff;
+}
+.myorder .myorder_header .myorderInfo {
+  display: flex;
+  justify-content: space-between;
+}
+.myorder .myorder_header .myorderInfo .ddxx {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.myorder .myorder_header .myorderInfo span {
+  color: hsl(5, 83%, 91%);
+  font-size: 13px;
+  font-weight: none;
+}
+.myorder .ordercate {
+  width: 90%;
+  box-sizing: border-box;
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #fff;
+  border-radius: 10px;
+  margin: 20px 0px;
+}
+.myorder .ordercate .ordercateitem {
+  text-align: center;
+  font-size: 13px;
+  color: #282828;
+  position: relative;
+}
+.myorder .ordercate .ordercateitem div {
+  margin: 5px 0px;
+}
+.myorder .ordercate .ordercateitem .active {
+  font-weight: bold;
+}
+.myorder .ordercate .ordercateitem .active::after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  background-color: #e93323;
+  position: absolute;
+  bottom: -8px;
+  left: 0px;
+}
+.myorder .ordercate .ordercateitem .on {
+  font-weight: bold;
+}
+.myorder .myorder-btm {
+  height: 600px;
+  margin-top: 40px;
+  border: 1px solid #333;
+}
+.myorder .myorder-btm .will {
+  width: 90%;
+  padding: 10px;
+  background: #fff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin: 10px auto;
+}
+.myorder .myorder-btm .will .time {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.myorder .myorder-btm .will .time .timer {
+  color: #282828;
+  font-size: 14px;
+}
+.myorder .myorder-btm .will .time .daizhifu {
+  color: #e93323;
+  font-size: 14px;
+}
+.myorder .myorder-btm .will .will_mid {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0px;
+  box-sizing: border-box;
+  border-top: 1px solid #f1f1f1;
+  border-bottom: 1px solid #f1f1f1;
+}
+.myorder .myorder-btm .will .will_mid .will_img {
+  width: 50px;
+  height: 50px;
+}
+.myorder .myorder-btm .will .will_mid .will_img img {
+  width: 50px;
+  height: 50px;
+}
+.myorder .myorder-btm .will .will_mid .mid_text {
+  color: #282828;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.myorder .myorder-btm .will .will_mid .mid_price {
+  color: #999;
+  font-size: 14px;
+  display: flex;
+  align-content: space-around;
+}
+.myorder .myorder-btm .will .mid_jine {
+  font-size: 13px;
+}
+.myorder .myorder-btm .will .mid_jine span {
+  color: #e93323;
+  font-weight: bold;
+}

@@ -123,9 +123,10 @@
 .mine .minefuwu .minefuwulist {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 .mine .minefuwu .minefuwulist .minefuwuitem {
-  margin: 5px;
+  margin: 10px 15px;
 }
 .mine .minefuwu .minefuwulist .minefuwuitem .imgg {
   text-align: center;

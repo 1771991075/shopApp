@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Grid } from 'react-vant';
-import { TodoList, BalanceList, Clock, ThumbCircle, Question, Arrow ,LocationO , ServiceO} from '@react-vant/icons';
+import { TodoList, BalanceList, Clock, ThumbCircle, Question, Arrow ,LocationO , ServiceO ,CouponO ,LikeO} from '@react-vant/icons';
 import './index.css'
 import WithRouter from '../../router/withRouter';
 import { getUser} from '../../api/mine'
@@ -43,7 +43,7 @@ class Mine extends Component {
         <div className='mineordercenter'>
           <div className='mineordercenter_top'>
             <span className='mineorderspan'>订单中心</span>
-            <span className='mineseemore'><span>查看全部</span><Arrow /></span>
+            <span className='mineseemore'><span onClick={()=>this.props.router.navigate('/myorder')}>查看全部</span><Arrow /></span>
           </div>
           <div>
             <Grid columnNum={5} border={false} square={true}>
@@ -62,14 +62,26 @@ class Mine extends Component {
           <div className='minefuwulist'>
             <div className='minefuwuitem'>
               <div className='imgg' onClick={()=>this.props.router.navigate('/address')}>
-                <LocationO fontSize={25} color={'#e93323'} />
+                <LocationO fontSize={27} color={'#e93323'} />
                 <p>收货地址</p>
               </div>
             </div>
             <div className='minefuwuitem'>
               <div className='imgg'>
-                <ServiceO fontSize={25} color={'#e93323'} />
+                <ServiceO fontSize={27} color={'#e93323'} />
                 <p>我的客服</p>
+              </div>
+            </div>
+            <div className='minefuwuitem' onClick={()=>this.props.router.navigate('/index/prefer')} >
+              <div className='imgg'>
+                <CouponO  fontSize={27} color={'#e93323'} />
+                <p>优惠券</p>
+              </div>
+            </div>
+            <div className='minefuwuitem' onClick={()=>this.props.router.navigate('/index/collect')}>
+              <div className='imgg'>
+                <LikeO fontSize={27} color={'#e93323'} />
+                <p>我的收藏</p>
               </div>
             </div>
           </div>
