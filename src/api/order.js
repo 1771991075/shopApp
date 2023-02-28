@@ -15,10 +15,24 @@ let getPayOrder = (data) =>sendHttp(`/api/front/order/create`,'post',data)
 //确认订单
 let payOrder = (data) => sendHttp(`/api/front/pay/payment`,'post',data)
 
+//获取所有订单数量
+let getCount = () => sendHttp(`/api/front/order/data`,'get')
+
+//获取未收货。。。。
+let willCount = (index) =>sendHttp(`/api/front/order/list?type=${index}&page=1&limit=20`,'get')
+
+//取消订单
+let removeOrder = (data) => sendHttp(`/api/front/order/cancel`,'post',data,{
+    'content-type':'application/x-www-form-urlencoded'
+})
+
 export {
     getOrder,
     getOrderInfo,
     getPrefer,
     getPayOrder,
-    payOrder
+    payOrder,
+    getCount,
+    willCount,
+    removeOrder
 }

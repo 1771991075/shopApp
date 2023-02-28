@@ -75,9 +75,7 @@
   font-weight: bold;
 }
 .myorder .myorder-btm {
-  height: 600px;
   margin-top: 40px;
-  border: 1px solid #333;
 }
 .myorder .myorder-btm .will {
   width: 90%;
@@ -105,8 +103,8 @@
   justify-content: space-between;
   padding: 15px 0px;
   box-sizing: border-box;
+  overflow: hidden;
   border-top: 1px solid #f1f1f1;
-  border-bottom: 1px solid #f1f1f1;
 }
 .myorder .myorder-btm .will .will_mid .will_img {
   width: 50px;
@@ -116,7 +114,7 @@
   width: 50px;
   height: 50px;
 }
-.myorder .myorder-btm .will .will_mid .mid_text {
+.myorder .myorder-btm .will .will_mid .mid_text .text1 {
   color: #282828;
   font-size: 14px;
   overflow: hidden;
@@ -128,13 +126,41 @@
 .myorder .myorder-btm .will .will_mid .mid_price {
   color: #999;
   font-size: 14px;
-  display: flex;
-  align-content: space-around;
 }
 .myorder .myorder-btm .will .mid_jine {
   font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #f1f1f1;
 }
 .myorder .myorder-btm .will .mid_jine span {
   color: #e93323;
   font-weight: bold;
+}
+.myorder .myorder-btm .will .mid_btn {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.myorder .myorder-btm .will .mid_btn button {
+  background-color: #e93323;
+  padding: 5px 15px;
+  box-sizing: border-box;
+  border: 1px solid #e93323;
+  color: #fff;
+  font-size: 12px;
+  margin-left: 10px;
+  border-radius: 20px;
+}
+.myorder .myorder-btm .will .mid_btn .delbtn {
+  background-color: #fff;
+  color: #aaa;
+  border: 1px solid #aaa;
+}
+.myorder .dixian {
+  text-align: center;
+  color: #282828;
+  font-size: 14px;
 }
