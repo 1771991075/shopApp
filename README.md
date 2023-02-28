@@ -1,5 +1,3 @@
-# How to Contribute?
-
 ## 1.Clone the project locally
 
     git clone https://github.com...
