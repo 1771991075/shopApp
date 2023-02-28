@@ -133,7 +133,6 @@ class Order extends Component {
         })
         //获取订单信息
         let res = await getOrderInfo(preOrderNo)
-        console.log(res);
         let orderInfo = res.data.data.orderInfoVo
         this.setState({
             orderInfo: orderInfo,
