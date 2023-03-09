@@ -5,3 +5,6 @@
 ul{
     list-style: none;
 }
+#root {
+    width: 100%;
+}

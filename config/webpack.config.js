@@ -144,15 +144,22 @@ module.exports = function (webpackEnv) {
                   },
                 ],
                 [
-                  'postcss-px-to-viewport',
+                  'postcss-mobile-forever',
                   {
-                    viewportWidth: 375, // (Number) The width of the viewport. 
-                    viewportHeight: 1334, // (Number) The height of the viewport. -- 一般不需要配置 
+                    rootSelector: "#root", // (String) Viewport root.
+                    viewportWidth: 375, // (Number|Function) The width of the viewport. 
+                    maxDisplayWidth: null, // (Number) Limit max width of viewport.
                     unitPrecision: 3, // (Number) The decimal numbers to allow the REM units to grow to. 
-                    viewportUnit: "vw", // (String) Expected units. 
                     selectorBlackList: [], // (Array) The selectors to ignore and leave as px. 
-                    minPixelValue: 1, // (Number) Set the minimum pixel value to replace. 
-                    mediaQuery: false // (Boolean) Allow px to be converted in media queries. 
+                    disableLandscape: false, // (Boolean) Disable to generate landscape viewport.
+                    disableDesktop: false, // (Boolean) Disable to generate desktop viewport.
+                    border: true, // (Boolean|String) The landscape and desktop viewport border.
+                    rootContainingBlockSelectorList: ["rv-tabbar"], // (Array) The filter of root containing-block selector.
+                    mobileConfig: {
+                      viewportUnit: "vw", // (String) Expected units. 
+                      fontViewportUnit: "vw", // (String) Expected font units. 
+                      replace: true, // (Boolean) Replace property.
+                    }
                   }
                 ],
 
