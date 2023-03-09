@@ -2,6 +2,7 @@
   width: 100%;
   min-height: 100vh;
   background-color: #f1f1f1;
+  position: relative;
 }
 .mine .mineTop {
   width: 100%;
