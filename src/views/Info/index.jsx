@@ -167,27 +167,27 @@ class Info extends Component {
                             <Cell title={`已选择: ${msgInfo.sku}`} isLink onClick={() => { this.changeIsShow() }} />
                         </div>
                         {
-                            InfoUserComments && (
-                                <div className='pingjia'>
-                                    <p>用户评价({InfoUserComments.sumCount})</p>
-                                    <div className='pingjiaxinxi'>
-                                        <div className='pingjiauserImg'>
-                                            <img src={InfoUserComments.productReply.avatar} alt="" />
-                                        </div>
-                                        <div className='pingjiaInfo'>
-                                            <div className='pingjiaInfo2'>
-                                                <span className='pingjiaspan1'>{InfoUserComments.productReply.nickname}<Rate size={'13px'} gutter={'2px'} color={'rgb(255, 210, 30)'} value={InfoUserComments.productReply.score}
-                                                    onChange={(e) => {
-                                                        InfoUserComments.productReply.score = e
-                                                        this.setState({InfoUserComments})
-                                                    }} /></span>
-                                                <span className='pingjiaspan1'>{InfoUserComments.productReply.createTime}</span>
-                                            </div>
-                                            <p className='pingjiaspan1'>{InfoUserComments.productReply.sku}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
+                            // InfoUserComments && (
+                            //     <div className='pingjia'>
+                            //         <p>用户评价({InfoUserComments.sumCount})</p>
+                            //         <div className='pingjiaxinxi'>
+                            //             <div className='pingjiauserImg'>
+                            //                 <img src={InfoUserComments.productReply.avatar} alt="" />
+                            //             </div>
+                            //             <div className='pingjiaInfo'>
+                            //                 <div className='pingjiaInfo2'>
+                            //                     <span className='pingjiaspan1'>{InfoUserComments.productReply.nickname}<Rate size={'13px'} gutter={'2px'} color={'rgb(255, 210, 30)'} value={InfoUserComments.productReply.score}
+                            //                         onChange={(e) => {
+                            //                             InfoUserComments.productReply.score = e
+                            //                             this.setState({InfoUserComments})
+                            //                         }} /></span>
+                            //                     <span className='pingjiaspan1'>{InfoUserComments.productReply.createTime}</span>
+                            //                 </div>
+                            //                 <p className='pingjiaspan1'>{InfoUserComments.productReply.sku}</p>
+                            //             </div>
+                            //         </div>
+                            //     </div>
+                            // )
                         }
                     </Tabs.TabPane>
                     <Tabs.TabPane title={`推荐`}>

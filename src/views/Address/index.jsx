@@ -85,6 +85,11 @@ class Address extends Component {
 
     //获取地址列表
     async componentDidMount() {
+        this.$plus(()=>{
+            // 改变导航栏字体颜色
+            plus.navigator.setStatusBarBackground("#ff6034");
+            plus.navigator.setStatusBarStyle("light");
+        })
         let res = await getAddressList()
         let addressList = res.data.data.list
         let arr = addressList.filter(item => {

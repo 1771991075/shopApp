@@ -144,6 +144,11 @@ class MyOrder extends Component {
     }
 
     async componentDidMount() {
+        this.$plus(()=>{
+            // 改变导航栏字体颜色
+            plus.navigator.setStatusBarBackground("#e93323");
+            plus.navigator.setStatusBarStyle("light");
+        })
         let [search] = this.props.router.searchParams
         let index = search.get('index')
         let { list } = this.state
