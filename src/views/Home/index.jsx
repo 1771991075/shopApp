@@ -71,7 +71,11 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-
+    this.$plus(()=>{
+      // 改变导航栏字体颜色
+      plus.navigator.setStatusBarBackground("#e93323");
+      plus.navigator.setStatusBarStyle("light");
+    })
     //获取分类
     let res = await getCate()
     //获取商品排行榜

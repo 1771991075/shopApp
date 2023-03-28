@@ -14,6 +14,21 @@ class Login extends Component {
     code: '',
     title: '发送验证码'
   }
+  componentDidMount(){
+    let authors = {}
+    this.$plus(()=>{
+        // 获取授权服务商
+        let servers =  plus.oauth.getServices((obj)=>{
+            console.log(obj)
+            obj.forEach(item=>{
+                authors[item.id] = item;
+            })
+            this.setState({
+                authors
+            })
+        })
+    })
+  }
 
   render() {
     let { phone, code, title } = this.state
@@ -44,9 +59,23 @@ class Login extends Component {
           <Button type='primary' size='large' className='loginbtn' onClick={() => this.login()}>
             登录
           </Button>
+          <Button type='primary' size='large' className='loginbtn' onClick={() => this.authorLogin("weixin")}>
+            微信登录
+          </Button>
+          <Button type='primary' size='large' className='loginbtn' onClick={() => this.authorLogin("qq")}>
+            QQ登录
+          </Button>
         </div>
       </div>
     )
+  }
+  // 第三方登录
+  authorLogin(type){
+    this.$plus(()=>{
+        this.state.authors[type].authorize(()=>{
+            Toast("授权成功")
+        })
+    })
   }
   async sendCode() {
     let { s, timer, phone } = this.state

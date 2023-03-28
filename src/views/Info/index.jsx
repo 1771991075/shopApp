@@ -48,6 +48,11 @@ class Info extends Component {
     }
 
     async componentDidMount() {
+        this.$plus(()=>{
+            // 改变导航栏字体颜色
+            plus.navigator.setStatusBarBackground("#fff");
+            plus.navigator.setStatusBarStyle("dark");
+        })
         let [search] = this.props.router.searchParams
         let id = search.get('id')
         let imgList = []
