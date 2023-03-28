@@ -12,7 +12,9 @@ class Login extends Component {
     timer: null,
     phone: '',
     code: '',
-    title: '发送验证码'
+    title: '发送验证码',
+    //服务商
+    authors:null
   }
   componentDidMount(){
     let authors = {}
