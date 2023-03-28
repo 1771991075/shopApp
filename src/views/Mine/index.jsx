@@ -97,6 +97,11 @@ class Mine extends Component {
   }
 
   async componentDidMount() {
+    this.$plus(()=>{
+      // 改变导航栏字体颜色
+      plus.navigator.setStatusBarBackground("#1db0fc");
+      plus.navigator.setStatusBarStyle("light");
+    })
     //获取用户信息
     let resUser = await getUser()
     let res = await getCount()

@@ -105,6 +105,11 @@ class Cart extends Component {
   }
 
   async componentDidMount() {
+    this.$plus(()=>{
+      // 改变导航栏字体颜色
+      plus.navigator.setStatusBarBackground("#ff6034");
+      plus.navigator.setStatusBarStyle("light");
+    })
     Toast.loading({
       message: '加载中...',
       forbidClick: true,
