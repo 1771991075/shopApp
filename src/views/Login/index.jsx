@@ -14,21 +14,24 @@ class Login extends Component {
     code: '',
     title: '发送验证码',
     //服务商
-    authors:null
+    authors: null
   }
-  componentDidMount(){
+  componentDidMount() {
     let authors = {}
-    this.$plus(()=>{
-        // 获取授权服务商
-        let servers =  plus.oauth.getServices((obj)=>{
-            console.log(obj)
-            obj.forEach(item=>{
-                authors[item.id] = item;
-            })
-            this.setState({
-                authors
-            })
+    this.$plus(() => {
+      // 改变导航栏字体颜色
+      plus.navigator.setStatusBarBackground("#ffffff");
+      plus.navigator.setStatusBarStyle("dark");
+      // 获取授权服务商
+      let servers = plus.oauth.getServices((obj) => {
+        console.log(obj)
+        obj.forEach(item => {
+          authors[item.id] = item;
         })
+        this.setState({
+          authors
+        })
+      })
     })
   }
 
@@ -72,11 +75,11 @@ class Login extends Component {
     )
   }
   // 第三方登录
-  authorLogin(type){
-    this.$plus(()=>{
-        this.state.authors[type].login(()=>{
-            Toast("授权成功")
-        })
+  authorLogin(type) {
+    this.$plus(() => {
+      this.state.authors[type].login(() => {
+        Toast("授权成功")
+      })
     })
   }
   async sendCode() {

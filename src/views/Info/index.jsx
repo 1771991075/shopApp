@@ -1,10 +1,10 @@
 import React, { Component, createRef } from 'react'
 import WithRouter from '../../router/withRouter'
-import { NavBar, Search, ActionBar, ImagePreview, Tabs, Cell, Toast ,ShareSheet  } from 'react-vant';
-import { CartO, StarO ,Star ,Ellipsis } from '@react-vant/icons'
+import { NavBar, Search, ActionBar, ImagePreview, Tabs, Cell, Toast, ShareSheet } from 'react-vant';
+import { CartO, StarO, Star, Ellipsis } from '@react-vant/icons'
 import Content from '../../component/Content'
-import { getShopInfo, getGoodShop, getUserComments ,addUserCollect ,removeUserCollect } from '../../api/info'
-import {getCartList} from '../../api/cart'
+import { getShopInfo, getGoodShop, getUserComments, addUserCollect, removeUserCollect } from '../../api/info'
+import { getCartList } from '../../api/cart'
 import InfoSwiper from '../../component/Info/InfoSwiper';
 import ShopInfo from '../../component/Info/ShopInfo';
 import GoodShop from '../../component/Info/GoodShop';
@@ -16,10 +16,10 @@ class Info extends Component {
     swiperRef = createRef()
     //分享模态框列表
     options = [
-        { name: '微信好友', icon: 'wechat',id:"weixin",type:1 },
-        { name: '朋友圈', icon: 'wechat-moments',id:"weixin",type:2 },
-        { name: '微博', icon: 'weibo',id:"sinaweibo" },
-        { name: 'QQ', icon: 'qq',id:"qq"},
+        { name: '微信好友', icon: 'wechat', id: "weixin", type: 1 },
+        { name: '朋友圈', icon: 'wechat-moments', id: "weixin", type: 2 },
+        { name: '微博', icon: 'weibo', id: "sinaweibo" },
+        { name: 'QQ', icon: 'qq', id: "qq" },
     ];
 
     state = {
@@ -49,13 +49,13 @@ class Info extends Component {
         //用户评价
         InfoUserComments: null,
         //用户收藏
-        userCollect:false,
+        userCollect: false,
         //购物车数量
-        cartCount:0,
+        cartCount: 0,
         //分享面板显示隐藏
-        visible:false,
+        visible: false,
         //分享服务商
-        server:null
+        server: null
     }
 
     async componentDidMount() {
@@ -65,13 +65,13 @@ class Info extends Component {
             plus.navigator.setStatusBarBackground("#ffffff");
             plus.navigator.setStatusBarStyle("dark");
             // 获取第三方分享服务商
-            plus.share.getServices((servers)=>{
-                servers.forEach(item=>{
+            plus.share.getServices((servers) => {
+                servers.forEach(item => {
                     server[item.id] = item;
                 })
             })
             this.setState({
-                server:server
+                server: server
             })
         })
         let [search] = this.props.router.searchParams
@@ -79,7 +79,7 @@ class Info extends Component {
         let imgList = []
         let res = await getShopInfo(id)
         this.setState({
-            userCollect:res.data.data.userCollect
+            userCollect: res.data.data.userCollect
         })
         let scrollHeight = 0
         //获取商品规格
@@ -98,7 +98,7 @@ class Info extends Component {
             productAttr,
             productValue,
             skuList,
-            cartCount:cartCountRes.data.data.list.length
+            cartCount: cartCountRes.data.data.list.length
         }, () => {
             res.data.data.productInfo.content.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/g, function (match, capture) {
                 imgList.push(capture);
@@ -158,7 +158,7 @@ class Info extends Component {
     }
 
     render() {
-        const { visible , server, shop, images, goodShop, imgList, productAttr, skuList, msgInfo, InfoUserComments ,userCollect ,cartCount } = this.state
+        const { visible, server, shop, images, goodShop, imgList, productAttr, skuList, msgInfo, InfoUserComments, userCollect, cartCount } = this.state
         return (
             <div className='info'>
                 <Tabs
@@ -170,42 +170,42 @@ class Info extends Component {
                     <Tabs.TabPane title={`商品`} >
                         <div className='infoTop'>
                             <NavBar
-                                title={<Search placeholder="搜索商品" shape="round" align="center" color='#e93323' onFocus={()=>this.props.router.navigate('/search')} />}
+                                title={<Search placeholder="搜索商品" shape="round" align="center" color='#e93323' onFocus={() => this.props.router.navigate('/search')} />}
                                 onClickLeft={() => this.props.router.navigate(-1)}
                                 rightText={<Ellipsis fontSize={20} />}
-                                onClickRight={() => this.setState({visible:true})}
+                                onClickRight={() => this.setState({ visible: true })}
                             />
                             <ShareSheet
                                 visible={visible}
                                 options={this.options}
                                 title='分享商品'
-                                onCancel={() => this.setState({visible:false})}
+                                onCancel={() => this.setState({ visible: false })}
                                 onSelect={(option) => {
                                     //定义分享内容
                                     let msg = {
-                                        type:'web',
-                                        title:shop.storeName,
-                                        content:shop.storeName,
-                                        thumbs:shop.image,
-                                        href:window.location.href,
-                                        extra:{
-                                            scene:"WXSceneSession"|"WXSceneTimeline"
+                                        type: "web",
+                                        title: msgInfo.storeName,
+                                        content: msgInfo.storeName,
+                                        thumbs: msgInfo.image,
+                                        href: window.location.href,
+                                        extra: {
+                                            scene: "WXSceneSession" | "WXSceneTimeline"
                                         }
                                     }
-                                    if(option.type===1){
+                                    if (option.type === 1) {
                                         // 微信好友分享
-                                        msg.extra.scene  = "WXSceneSession"
-                                    }else if(option.type===2){
+                                        msg.extra.scene = "WXSceneSession"
+                                    } else if (option.type === 2) {
                                         // 微信朋友圈分享
-                                        msg.extra.scene  = "WXSceneTimeline"
-                                    }else{
-                                        msg.extra.scene='';
+                                        msg.extra.scene = "WXSceneTimeline"
+                                    } else {
+                                        msg.extra.scene = '';
                                     }
-                                    //获取分享服务商对象
-                                    server[option.id].send(msg,()=>{
-                                        Toast.success('分享成功')
-                                    },()=>{
-                                        Toast.fail('分享失败')
+                                    // 获取分享服务商对象
+                                    this.state.server[option.id].send(msg, () => {
+                                        Toast.success("分享成功")
+                                    }, () => {
+                                        Toast.fail("分享失败")
                                     })
                                 }}
                             />
@@ -268,47 +268,48 @@ class Info extends Component {
 
                 <div className='demo-action-bar'>
                     <ActionBar>
-                        <ActionBar.Icon icon={<CartO color='red' />} text='购物车' badge={{ content: cartCount }} onClick={()=>this.props.router.navigate('/index/cart')}/>
-                        <ActionBar.Icon icon={userCollect?<Star color='red'/>:<StarO color='red' />} text='收藏' onClick={()=>this.changeUserCollect()} />
-                        <ActionBar.Button type='warning' text='加入购物车' onClick={()=>this.changeIsShow()} />
-                        <ActionBar.Button type='danger' text='立即购买' onClick={()=>this.changeIsShow()}  />
+                        <ActionBar.Icon icon={<CartO color='red' />} text='购物车' badge={{ content: cartCount }} onClick={() => this.props.router.navigate('/index/cart')} />
+                        <ActionBar.Icon icon={userCollect ? <Star color='red' /> : <StarO color='red' />} text='收藏' onClick={() => this.changeUserCollect()} />
+                        <ActionBar.Button type='warning' text='加入购物车' onClick={() => this.changeIsShow()} />
+                        <ActionBar.Button type='danger' text='立即购买' onClick={() => this.changeIsShow()} />
                     </ActionBar>
                 </div>
-                <InfoPopup  skuList={skuList} productAttr={productAttr} cartCount={cartCount} userCollect={userCollect} msgInfo={msgInfo} changeCartCount={this.changeCartCount} setSkuList={(skuList) => {
-                    this.setState({ skuList },()=> this.getShopInfo())}} getCollect={()=>this.changeUserCollect()}/>
+                <InfoPopup skuList={skuList} productAttr={productAttr} cartCount={cartCount} userCollect={userCollect} msgInfo={msgInfo} changeCartCount={this.changeCartCount} setSkuList={(skuList) => {
+                    this.setState({ skuList }, () => this.getShopInfo())
+                }} getCollect={() => this.changeUserCollect()} />
             </div>
         )
     }
 
     //购物车数量
-    changeCartCount = ()=>{
+    changeCartCount = () => {
         this.setState({
-            cartCount:this.state.cartCount+1
+            cartCount: this.state.cartCount + 1
         })
     }
 
     //点击收藏、取消收藏
-    async changeUserCollect(){
-        if(this.state.userCollect){
+    async changeUserCollect() {
+        if (this.state.userCollect) {
             let res = await removeUserCollect(this.state.msgInfo.productId)
-            if(res.data.code === 200){
+            if (res.data.code === 200) {
                 Toast.success('取消收藏')
                 this.setState({
-                    userCollect:false
+                    userCollect: false
                 })
                 return
             }
             Toast.info(res.data.message)
-        }else{
+        } else {
             let data = {
-                category:"product",
-                id:this.state.msgInfo.productId
+                category: "product",
+                id: this.state.msgInfo.productId
             }
             let res = await addUserCollect(data)
-            if(res.data.code === 200){
+            if (res.data.code === 200) {
                 Toast.success('收藏成功')
                 this.setState({
-                    userCollect:true
+                    userCollect: true
                 })
                 return
             }
@@ -330,7 +331,7 @@ class Info extends Component {
     changeIsShow() {
         // 调用子组件方法改变子组件状态
         // this.popupRef.current.isShow()
-        bus.emit('sendIsShow',true)
+        bus.emit('sendIsShow', true)
     }
 }
 
