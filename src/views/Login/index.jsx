@@ -74,7 +74,7 @@ class Login extends Component {
   // 第三方登录
   authorLogin(type){
     this.$plus(()=>{
-        this.state.authors[type].authorize(()=>{
+        this.state.authors[type].login(()=>{
             Toast("授权成功")
         })
     })

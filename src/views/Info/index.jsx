@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react'
 import WithRouter from '../../router/withRouter'
-import { NavBar, Search, ActionBar, ImagePreview, Tabs, Cell, Rate, Toast } from 'react-vant';
-import { CartO, StarO ,Star } from '@react-vant/icons'
+import { NavBar, Search, ActionBar, ImagePreview, Tabs, Cell, Toast ,ShareSheet  } from 'react-vant';
+import { CartO, StarO ,Star ,Ellipsis } from '@react-vant/icons'
 import Content from '../../component/Content'
 import { getShopInfo, getGoodShop, getUserComments ,addUserCollect ,removeUserCollect } from '../../api/info'
 import {getCartList} from '../../api/cart'
@@ -14,6 +14,13 @@ import './index.css'
 class Info extends Component {
 
     swiperRef = createRef()
+    //分享模态框列表
+    options = [
+        { name: '微信好友', icon: 'wechat',id:"weixin",type:1 },
+        { name: '朋友圈', icon: 'wechat-moments',id:"weixin",type:2 },
+        { name: '微博', icon: 'weibo',id:"sinaweibo" },
+        { name: 'QQ', icon: 'qq',id:"qq"},
+    ];
 
     state = {
         shop: null,
@@ -44,14 +51,28 @@ class Info extends Component {
         //用户收藏
         userCollect:false,
         //购物车数量
-        cartCount:0
+        cartCount:0,
+        //分享面板显示隐藏
+        visible:false,
+        //分享服务商
+        server:null
     }
 
     async componentDidMount() {
-        this.$plus(()=>{
+        let server = {}
+        this.$plus(() => {
             // 改变导航栏字体颜色
-            plus.navigator.setStatusBarBackground("#fff");
+            plus.navigator.setStatusBarBackground("#ffffff");
             plus.navigator.setStatusBarStyle("dark");
+            // 获取第三方分享服务商
+            plus.share.getServices((servers)=>{
+                servers.forEach(item=>{
+                    server[item.id] = item;
+                })
+            })
+            this.setState({
+                server:server
+            })
         })
         let [search] = this.props.router.searchParams
         let id = search.get('id')
@@ -137,7 +158,7 @@ class Info extends Component {
     }
 
     render() {
-        const { shop, images, goodShop, imgList, productAttr, skuList, msgInfo, InfoUserComments ,userCollect ,cartCount } = this.state
+        const { visible , server, shop, images, goodShop, imgList, productAttr, skuList, msgInfo, InfoUserComments ,userCollect ,cartCount } = this.state
         return (
             <div className='info'>
                 <Tabs
@@ -151,6 +172,42 @@ class Info extends Component {
                             <NavBar
                                 title={<Search placeholder="搜索商品" shape="round" align="center" color='#e93323' onFocus={()=>this.props.router.navigate('/search')} />}
                                 onClickLeft={() => this.props.router.navigate(-1)}
+                                rightText={<Ellipsis fontSize={20} />}
+                                onClickRight={() => this.setState({visible:true})}
+                            />
+                            <ShareSheet
+                                visible={visible}
+                                options={this.options}
+                                title='分享商品'
+                                onCancel={() => this.setState({visible:false})}
+                                onSelect={(option) => {
+                                    //定义分享内容
+                                    let msg = {
+                                        type:'web',
+                                        title:shop.storeName,
+                                        content:shop.storeName,
+                                        thumbs:shop.image,
+                                        href:window.location.href,
+                                        extra:{
+                                            scene:"WXSceneSession"|"WXSceneTimeline"
+                                        }
+                                    }
+                                    if(option.type===1){
+                                        // 微信好友分享
+                                        msg.extra.scene  = "WXSceneSession"
+                                    }else if(option.type===2){
+                                        // 微信朋友圈分享
+                                        msg.extra.scene  = "WXSceneTimeline"
+                                    }else{
+                                        msg.extra.scene='';
+                                    }
+                                    //获取分享服务商对象
+                                    server[option.id].send(msg,()=>{
+                                        Toast.success('分享成功')
+                                    },()=>{
+                                        Toast.fail('分享失败')
+                                    })
+                                }}
                             />
                             <div ref={this.swiperRef} >
                                 {
